@@ -70,11 +70,11 @@ public class HomeFragment extends Fragment {
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
-                        //CategoryId alıp yeni Activity'e gonderiyoruz.
-                        //Intent foodList = new Intent(Home.this,FoodList.class) ;
-                        //foodList.putExtra("CategoryId",adapter.getRef(position).getKey());
-                        //startActivity(foodList);
-                        Toast.makeText(getActivity(), ""+clickItem.getName(), Toast.LENGTH_SHORT).show();
+
+                        Intent foodList = new Intent(getActivity(),FoodList.class) ;
+                        foodList.putExtra("CategoryId",adapter.getRef(position).getKey());
+                        startActivity(foodList);
+                        //Toast.makeText(getActivity(), ""+clickItem.getName(), Toast.LENGTH_SHORT).show();
 
                     }
                 });
