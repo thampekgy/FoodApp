@@ -88,7 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:onClick="email_sign_in_button_click"
+
                 android:text="@string/action_sign_in" />
 
         </LinearLayout>
