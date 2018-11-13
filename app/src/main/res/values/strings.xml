@@ -1,0 +1,49 @@
+<resources>
+    <string name="app_name">Foodies Application</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_register">Register</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."</string>
+
+    <!-- three dots -->
+    <string name="action_editProfile">Edit Profile</string>
+    <string name="action_chat">Chat</string>
+    <string name="action_help">Help</string>
+    <string name="action_about">About</string>
+    <string name="action_signOut">Sign Out</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_restaurant_fragment">Hello restaurant fragment</string>
+
+    <!-- String related to EditProfile-->
+    <string name="title_activity_editProfile">Manage Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_help_fragment">This is the help pages.</string>
+
+    <string name="hello_about_fragment">This is the about us pages.</string>
+
+    <!--city-->
+    <string-array name="city_array">
+        <item>Kuala Lumpur</item>
+        <item>Johor Bahru</item>
+        <item>Penang</item>
+    </string-array>
+
+
+</resources>
