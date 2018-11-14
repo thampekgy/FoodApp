@@ -3,9 +3,11 @@ package com.example.windows10.newproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -23,17 +25,17 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class  LoginActivity extends AppCompatActivity{
+public class  LoginActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView txtEmailLogin;
+    private AutoCompleteTextView txtPhone;
     private EditText txtPwd;
-    private  Button forgetPassword, btnSignIn;
-    private FirebaseAuth firebaseAuth;
+    private Button forgetPassword, btnSignIn;
 
 
     @Override
@@ -43,67 +45,81 @@ public class  LoginActivity extends AppCompatActivity{
 
         btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
         forgetPassword = (Button) findViewById(R.id.buttonForgetPassword);
-        forgetPassword.setPaintFlags(forgetPassword.getPaintFlags()/* | Paint.UNDERLINE_TEXT_FLAG*/);
+        forgetPassword.setPaintFlags(forgetPassword.getPaintFlags());
 
 
-        txtEmailLogin = (AutoCompleteTextView) findViewById(R.id.email);
+        txtPhone = (AutoCompleteTextView) findViewById(R.id.phone);
         txtPwd = (EditText) findViewById(R.id.password);
-        firebaseAuth = FirebaseAuth.getInstance();
 
-        final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference table_member = database.getReference("Member");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final ProgressDialog mDialog = new ProgressDialog(LoginActivity.this);
-                mDialog.setMessage(("Pleas wait..."));
+                mDialog.setMessage(("Please wait..."));
                 mDialog.show();
-
+                //Query query = table_member.child("Member").orderByChild();
                 table_member.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.child(txtEmailLogin.getText().toString()).exists()){
-                            mDialog.dismiss();
-                            Member member = dataSnapshot.child(txtEmailLogin.getText().toString()).getValue(Member.class);
-                            if(member.getPassword().equals(txtPwd.getText().toString())){
-                                {
-                                    Intent intent = new Intent(LoginActivity.this, HomeFragment.class);
-                                    Common.currentMember=member;
-                                    startActivity(intent);
-                                    finish();
-                                }
-                            }else {
-                                Toast.makeText(LoginActivity.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
-                            }
 
+
+
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        String txtPhoneText = txtPhone.getText().toString();
+                        if (dataSnapshot.exists()) {        // if u want debug start at here
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                                if (snapshot.child("contact").getValue().equals(txtPhoneText)) {
+                                    mDialog.dismiss();
+                                    //Member mem = dataSnapshot.child("member").child(txtPhone.getText().toString()).getValue(Member.class);
+                                    //Member mem = dataSnapshot.getValue(Member.class);                              //crash here
+                                    //Toast.makeText(LoginActivity.this, "" + mem, Toast.LENGTH_SHORT).show();
+
+                                    //mem.setContact(txtPhone.getText().toString());
+                                    if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {      //to here
+                                        Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        //Common.currentMember = member;
+                                        startActivity(intent);
+                                        //finish();
+
+
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
+                                    }
+
+
+                                } else {
+                                    mDialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "Member not exist in Database!!!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
-                        else {
-                            mDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Kullanıcı Bilgilerini Bulamadık", Toast.LENGTH_SHORT).show();
-                        }
+
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
+
                 });
             }
         });
-
-
-
-
-
     }
-    public void email_register_button_click(View v){
+
+
+    public void email_register_button_click(View v) {
         Intent intent = new Intent(LoginActivity.this, RegistrationMember.class);
         startActivity(intent);
 
     }
 
-    public void email_sign_in_button_click(View v){
+    //this button is my first test version
+    public void email_sign_in_button_click(View v) {
         /*final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
 
         firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -126,22 +142,16 @@ public class  LoginActivity extends AppCompatActivity{
         });*/
 
 
-
-
-
     }
 
-    public void joinUsRider_click(View v){
+    public void joinUsRider_click(View v) {
         Intent intent = new Intent(LoginActivity.this, RegistrationRider.class);
         startActivity(intent);
     }
 
-    public void joinUsRestaurantOwner_click(View v){
+    public void joinUsRestaurantOwner_click(View v) {
         Intent intent = new Intent(LoginActivity.this, RegistrationResOwner.class);
         startActivity(intent);
     }
-
-
-
 }
 

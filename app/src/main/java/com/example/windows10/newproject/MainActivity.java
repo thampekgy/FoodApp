@@ -26,7 +26,7 @@ import com.example.windows10.newproject.Common.Common;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected FragmentManager fragmentManager;
-    private TextView navEmail;
+    //TextView navEmail;
     //TextView txtFullName;
 
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });
 
         //tranfer nav de email
-        //navEmail = (TextView) findViewById(R.id.nav_email);
+        //navEmail = (TextView) findViewById(R.id.navEmail);
         //navEmail.setText(getIntent().getExtras().getString("Email"));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

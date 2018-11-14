@@ -80,7 +80,6 @@
         android:layout_height="59dp"
         android:layout_gravity="right|bottom"
         android:text="Submit"
-        android:onClick="Submit_register_click"
         android:textSize="18sp" />
 
 
