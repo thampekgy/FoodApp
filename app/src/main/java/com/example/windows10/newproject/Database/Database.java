@@ -12,10 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Database extends SQLiteAssetHelper {
-    private static final String DB_NAME="FoodDb.db";
+    private static final String DB_NAME="OrderDb.db";
     private static final int DB_VER=1 ;
-
-
 
     public Database(Context context)
     {
@@ -49,14 +47,13 @@ public class Database extends SQLiteAssetHelper {
     }
 
     public void addToCart(Order order){
-        SQLiteDatabase db = getReadableDatabase() ;
+        SQLiteDatabase db = getReadableDatabase();
         String query = String.format("INSERT INTO OrderDetail(ProductId,ProductName,Quantity,Price,Discount) VALUES('%s','%s','%s','%s','%s');",
                 order.getProductId(),
                 order.getProductName(),
                 order.getQuantity(),
                 order.getPrice(),
                 order.getDiscount());
-
 
         db.execSQL(query);
 

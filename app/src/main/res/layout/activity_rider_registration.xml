@@ -197,7 +197,6 @@
             android:id="@+id/riderSubmitBtn"
             android:layout_width="138dp"
             android:layout_height="59dp"
-            android:onClick="riderSubmitBtn_click"
             android:layout_gravity="right|bottom"
             android:text="Submit"
             android:textSize="20sp" />

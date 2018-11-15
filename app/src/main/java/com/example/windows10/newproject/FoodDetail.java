@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.windows10.newproject.Database.Database;
 import com.example.windows10.newproject.Model.Food;
 import com.example.windows10.newproject.Model.Order;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ public class FoodDetail extends AppCompatActivity {
     CollapsingToolbarLayout collapsingToolbarLayout;
     FloatingActionButton btnCart;
     ElegantNumberButton numberButton ;
+    String num;
 
 
     String foodId="" ;
@@ -53,10 +55,22 @@ public class FoodDetail extends AppCompatActivity {
         btnCart= (FloatingActionButton) findViewById(R.id.btn_cart);
 
 
-        /*btnCart.setOnClickListener(new View.OnClickListener() {
+        /*numberButton.setOnClickListener(new ElegantNumberButton.OnClickListener(){
             @Override
             public void onClick(View view) {
-                new Database(getBaseContext()).addToCart(new Order(
+                num = numberButton.getNumber();
+                //Toast.makeText(FoodDetail.this, "welcome "+num, Toast.LENGTH_SHORT).show();
+            }
+
+        });*/
+
+
+        btnCart.setOnClickListener(new FloatingActionButton.OnClickListener() {
+
+            @Override
+
+            public void onClick(View view) {
+                new Database(FoodDetail.this).addToCart(new Order(
                         foodId,
                         currentFood.getName(),
                         numberButton.getNumber(),
@@ -66,7 +80,9 @@ public class FoodDetail extends AppCompatActivity {
                 ));
                 Toast.makeText(FoodDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+
+
 
 
         food_description= (TextView) findViewById(R.id.food_description);

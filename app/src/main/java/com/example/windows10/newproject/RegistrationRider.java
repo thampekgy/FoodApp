@@ -1,6 +1,7 @@
 package com.example.windows10.newproject;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +14,13 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.windows10.newproject.Model.Member;
 import com.example.windows10.newproject.Model.Rider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -95,14 +100,51 @@ public class RegistrationRider extends AppCompatActivity {
         radioGenderButton = (RadioButton) findViewById(selectedId);
 
 
+        final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        final DatabaseReference table_rider = database.getReference("DeliveryPerson");
 
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final ProgressDialog mDialog= new ProgressDialog(RegistrationRider.this);
+                mDialog.setMessage("Please waiting...");
+                mDialog.show();
+
+
+                table_rider.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        //check if already user email
+                        if(dataSnapshot.child(riderContact.getText().toString()).exists()){
+                            mDialog.dismiss();
+                            Toast.makeText(RegistrationRider.this, "Email already registered...", Toast.LENGTH_SHORT).show();
+
+                        }
+                        else{
+                            mDialog.dismiss();
+                            Rider member = new Rider(riderName.getText().toString(), radioGenderButton.getText().toString(), riderContact.getText().toString(), spinCity.getSelectedItem().toString(), riderEmail.getText().toString(), DOB.getText().toString(), password.getText().toString(), guardianName.getText().toString(), guardianWho.getText().toString(), guardianContact.getText().toString());
+                            table_rider.child(riderContact.getText().toString()).setValue(member);
+                            Toast.makeText(RegistrationRider.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+        });
 
 
 
     }
 
 
-    public void riderSubmitBtn_click(View v){
+    /*public void riderSubmitBtn_click(View v){
 
         String rName = riderName.getText().toString();
         String rContact = riderContact.getText().toString();
@@ -192,7 +234,7 @@ public class RegistrationRider extends AppCompatActivity {
         dbRef = FirebaseDatabase.getInstance().getReference();
          Rider rider = new Rider(riderName.getText().toString(), radioGenderButton.getText().toString(), riderContact.getText().toString(), spinCity.getSelectedItem().toString(), riderEmail.getText().toString(), DOB.getText().toString(), password.getText().toString(), guardianName.getText().toString(), guardianWho.getText().toString(), guardianContact.getText().toString());
         dbRef.child("DeliveryPerson").push().setValue(rider);
-    }
+    }*/
 
 
 

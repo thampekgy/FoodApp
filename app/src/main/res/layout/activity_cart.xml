@@ -50,7 +50,7 @@
 
             </LinearLayout>
 
-            <info.hoang8f.widget.FButton
+            <Button
                 android:layout_weight="1"
                 android:id="@+id/btn_place_order"
                 android:layout_width="match_parent"
@@ -59,12 +59,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textColor="@android:color/white"
-                android:text="Place Order"
-                app:shadowColor="@android:color/black"
-                app:shadowEnabled="true"
-                app:shadowHeight="5dp"
-                app:cornerRadius="4dp"/>
+                android:text="Place Order"/>
 
         </RelativeLayout>
 

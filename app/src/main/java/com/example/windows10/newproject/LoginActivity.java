@@ -16,12 +16,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.windows10.newproject.Common.Common;
-import com.example.windows10.newproject.Model.Member;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -77,11 +71,8 @@ public class  LoginActivity extends AppCompatActivity {
 
                                 if (snapshot.child("contact").getValue().equals(txtPhoneText)) {
                                     mDialog.dismiss();
-                                    //Member mem = dataSnapshot.child("member").getValue(Member.class);
 
-                                    //Toast.makeText(LoginActivity.this, "" + mem, Toast.LENGTH_SHORT).show();
-                                    //Member mem = dataSnapshot.child(Member.class).getName();
-                                    //mem.setContact(txtPhone.getText().toString());
+
                                     if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
                                         Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
@@ -121,7 +112,7 @@ public class  LoginActivity extends AppCompatActivity {
 
     }
 
-    //this button is my first test version
+
     public void email_sign_in_button_click(View v) {
         /*final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
 

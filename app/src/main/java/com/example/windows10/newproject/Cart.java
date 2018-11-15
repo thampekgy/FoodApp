@@ -29,7 +29,7 @@ public class Cart extends AppCompatActivity {
     DatabaseReference request;
 
     TextView txtTotalPrice;
-    FButton btnPlace;
+    Button btnPlace;
 
     List<Order> cart = new ArrayList<>();
 
@@ -40,6 +40,7 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        setTitle("Cart");
 
         database = FirebaseDatabase.getInstance();
         request = database.getReference("Requests");
@@ -51,9 +52,9 @@ public class Cart extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         txtTotalPrice = (TextView) findViewById(R.id.total);
-        btnPlace = (FButton) findViewById(R.id.btn_place_order);
+        btnPlace = (Button) findViewById(R.id.btn_place_order);
 
-        loadListFood();
+        //loadListFood();
 
 
 
@@ -70,7 +71,7 @@ public class Cart extends AppCompatActivity {
         for(Order order:cart)
             total+=(Integer.parseInt(order.getPrice()))*(Integer.parseInt(order.getQuantity()));
 
-        Locale locale = new Locale("en", "US");
+        Locale locale = new Locale("ms", "MY");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
         txtTotalPrice.setText((fmt.format(total)));
