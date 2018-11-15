@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.windows10.newproject.Common.Common;
@@ -28,12 +29,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import static com.example.windows10.newproject.Common.Common.currentMember;
+
 /**
  * A login screen that offers login via email/password.
  */
 public class  LoginActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView txtPhone;
+    private EditText txtPhone;
     private EditText txtPwd;
     private Button forgetPassword, btnSignIn;
 
@@ -48,7 +51,7 @@ public class  LoginActivity extends AppCompatActivity {
         forgetPassword.setPaintFlags(forgetPassword.getPaintFlags());
 
 
-        txtPhone = (AutoCompleteTextView) findViewById(R.id.phone);
+        txtPhone = (EditText) findViewById(R.id.phone);
         txtPwd = (EditText) findViewById(R.id.password);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -69,22 +72,25 @@ public class  LoginActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
                         String txtPhoneText = txtPhone.getText().toString();
-                        if (dataSnapshot.exists()) {        // if u want debug start at here
+                        if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                                 if (snapshot.child("contact").getValue().equals(txtPhoneText)) {
                                     mDialog.dismiss();
-                                    //Member mem = dataSnapshot.child("member").child(txtPhone.getText().toString()).getValue(Member.class);
-                                    //Member mem = dataSnapshot.getValue(Member.class);                              //crash here
-                                    //Toast.makeText(LoginActivity.this, "" + mem, Toast.LENGTH_SHORT).show();
+                                    //Member mem = dataSnapshot.child("member").getValue(Member.class);
 
+                                    //Toast.makeText(LoginActivity.this, "" + mem, Toast.LENGTH_SHORT).show();
+                                    //Member mem = dataSnapshot.child(Member.class).getName();
                                     //mem.setContact(txtPhone.getText().toString());
-                                    if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {      //to here
+                                    if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
                                         Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
+                                        //Common.currentMember = mem;
+                                        String mem = snapshot.child("name").getValue().toString();
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        //Common.currentMember = member;
+                                        intent.putExtra("Phone", txtPhoneText);
+                                        intent.putExtra("name", mem);
                                         startActivity(intent);
-                                        //finish();
+                                        finish();
 
 
                                     } else {
@@ -92,9 +98,6 @@ public class  LoginActivity extends AppCompatActivity {
                                     }
 
 
-                                } else {
-                                    mDialog.dismiss();
-                                    Toast.makeText(LoginActivity.this, "Member not exist in Database!!!", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }

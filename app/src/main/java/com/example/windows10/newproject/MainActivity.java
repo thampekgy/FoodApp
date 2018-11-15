@@ -26,8 +26,9 @@ import com.example.windows10.newproject.Common.Common;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     protected FragmentManager fragmentManager;
-    //TextView navEmail;
-    //TextView txtFullName;
+    TextView navPhone;
+    //String phone;
+    TextView txtFullName;
 
 
 
@@ -44,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Init Firebase
 
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,9 +54,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
-        //tranfer nav de email
-        //navEmail = (TextView) findViewById(R.id.navEmail);
-        //navEmail.setText(getIntent().getExtras().getString("Email"));
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        //navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView= navigationView.getHeaderView(0);
+        navPhone = (TextView)headerView.findViewById(R.id.navPhone);
+        Intent myIntent = getIntent();
+        String no = myIntent.getStringExtra("Phone");
+        navPhone.setText(no);
+
+        txtFullName= (TextView)headerView.findViewById(R.id.navFullName);
+        String name = myIntent.getStringExtra("name");
+        txtFullName.setText(name);
+        //txtFullName.setText(Common.currentMember.getName());
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -66,12 +77,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
-        View headerView= navigationView.getHeaderView(0);
-        //txtFullName= (TextView)headerView.findViewById(R.id.txtFullName);
-        //txtFullName.setText(Common.currentMember.getName());
+
+        //View headerView= navigationView.getHeaderView(0);
+        //View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        //
 
 
         fragmentManager = getSupportFragmentManager();

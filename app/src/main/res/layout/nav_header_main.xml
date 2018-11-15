@@ -14,21 +14,21 @@
 
 
     <TextView
-        android:id="@+id/txtFullName"
+        android:id="@+id/navFullName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="Peggy"
+        android:text="name"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
         android:textSize="30dp" />
 
     <TextView
-        android:id="@+id/navEmail"
+        android:id="@+id/navPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="gmail"
+        android:text="Phone"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@android:color/white"
         android:textSize="30dp" />
