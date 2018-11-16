@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        //navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
         View headerView= navigationView.getHeaderView(0);
         navPhone = (TextView)headerView.findViewById(R.id.navPhone);
@@ -154,24 +154,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         Fragment fragment = null;
 
-        switch(id)
-        {
-            case R.id.nav_home:
-                fragment = new HomeFragment();
-                break;
-            case R.id.nav_editProfile:
-                fragment = new editProfile();
-                break;
-            case R.id.nav_order:
-                //fragment = new Restaurant();
-                break;
-            case R.id.nav_help:
-                fragment = new help();
-                break;
-            case R.id.nav_about:
-                fragment = new about();
-                break;
-        }
         if(fragment!=null)
         {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -179,8 +161,42 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
         }
 
+        switch(id)
+        {
+            case R.id.nav_home:
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                startActivity(intent);
+
+                break;
+            case R.id.nav_editProfile:
+                fragment = new editProfile();
+
+                break;
+            case R.id.nav_order:
+                //fragment = new Restaurant();
+                break;
+            case R.id.nav_help:
+                Intent intent2 = new Intent(MainActivity.this, Help1.class);
+                startActivity(intent2);
+
+                break;
+            case R.id.nav_about:
+                //fragment = new about();
+                Intent intent1 = new Intent(MainActivity.this, about.class);
+                startActivity(intent1);
+
+                break;
+
+        }
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+    }
+    private void setupDrawerContent(NavigationView navigationView) {
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -189,7 +205,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_signOut)
+
+         if (id == R.id.nav_signOut)
         {
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);

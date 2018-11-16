@@ -17,22 +17,17 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
-
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RegistrationMember"
             android:label="Register Member" />
@@ -51,7 +46,19 @@
         <activity
             android:name=".FoodDetail"
             android:label="Food Detail" />
-        <activity android:name=".Cart"></activity>
+        <activity
+            android:name=".Cart"
+            android:label="Cart" />
+        <activity
+            android:name=".FAQs"
+            android:label="FAQs" />
+        <activity
+            android:name=".ReportDeliverIssues"
+            android:label="Report Delivery Issues" />
+        <activity android:name=".about"
+            android:label="About"/>
+        <activity android:name=".Help1"
+            android:label="Help"></activity>
     </application>
 
 </manifest>

@@ -3,11 +3,12 @@ package com.example.windows10.newproject;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class about extends AppCompatActivity {
+public class FAQs extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_faqs);
+        setTitle("FAQ");
     }
 }

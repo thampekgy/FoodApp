@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ public class RegistrationMember extends AppCompatActivity {
     private Button resSubmit;
     private EditText resEmail, resPassword, confirmPassword;
     private EditText resFirstName, resLastName, resContact;
-    //private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
     //private FirebaseDatabase firebaseDatabase;
     //private DatabaseReference dbRef;
     @Override
@@ -101,7 +102,7 @@ public class RegistrationMember extends AppCompatActivity {
 
 
 
-   /* public void Submit_register_click(View v)
+    public void Submit_register_click(View v)
     {
         final ProgressDialog progressDialog = ProgressDialog.show(RegistrationMember.this, "Please wait ....", "Processing...", true);
 
@@ -112,8 +113,7 @@ public class RegistrationMember extends AppCompatActivity {
                         progressDialog.dismiss();
 
                         if (task.isSuccessful()) {
-                            createMember();
-                            Toast.makeText(RegistrationMember.this, "Registration Successful.", Toast.LENGTH_LONG).show();
+
                             Intent i = new Intent(RegistrationMember.this, LoginActivity.class);
                             startActivity(i);
 
@@ -129,7 +129,7 @@ public class RegistrationMember extends AppCompatActivity {
 
 
     }
-    public void createMember(){
+   /* public void createMember(){
 
         String fullName = resFirstName.getText().toString() + resLastName.getText().toString();
         dbRef = FirebaseDatabase.getInstance().getReference();
