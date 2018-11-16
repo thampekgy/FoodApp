@@ -146,6 +146,8 @@
                 android:ems="10"
                 android:inputType="phone"
                 android:hint="Postal Code"
+
+                android:maxLength="5"
                 android:textSize="18sp" />
 
             <LinearLayout
@@ -176,7 +178,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:textSize="20sp"
-                android:onClick="resOwnerSubmit_click"
                 android:text="Submit" />
 
 
