@@ -1,6 +1,6 @@
 package com.example.windows10.newproject;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -8,12 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.windows10.newproject.Database.Database;
 import com.example.windows10.newproject.Model.Food;
-import com.example.windows10.newproject.Model.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,6 +42,9 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
         setTitle("Food Detail");
 
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_member = database.getReference("Member");
+
 
         database=FirebaseDatabase.getInstance();
         foods=database.getReference("Foods");
@@ -64,23 +64,17 @@ public class FoodDetail extends AppCompatActivity {
 
         });*/
 
-
-        btnCart.setOnClickListener(new FloatingActionButton.OnClickListener() {
-
+        btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
-
-            public void onClick(View view) {
-                new Database(FoodDetail.this).addToCart(new Order(
-                        foodId,
-                        currentFood.getName(),
-                        numberButton.getNumber(),
-                        currentFood.getPrice(),
-                        currentFood.getDiscount()
-
-                ));
-                Toast.makeText(FoodDetail.this, "Added to Cart", Toast.LENGTH_SHORT).show();
+            public void onClick(View v) {
+                final ProgressDialog mDialog = new ProgressDialog(FoodDetail.this);
+                mDialog.setMessage(("Please wait..."));
+                mDialog.show();
+                //Query query = table_member.child("Member").orderByChild();
+                table_member.addValueEventListener(new ValueEventListener() {
             }
         });
+
 
 
 

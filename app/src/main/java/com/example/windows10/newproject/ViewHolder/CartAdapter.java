@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.windows10.newproject.Interface.ItemClickListener;
-import com.example.windows10.newproject.Model.Order;
+import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.R;
 
 import java.text.NumberFormat;
@@ -51,10 +51,10 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
-    private List<Order> listData = new ArrayList<>();
+    private List<OrderRecord> listData = new ArrayList<>();
     private Context context;
 
-    public CartAdapter(List<Order> listData, Context context){
+    public CartAdapter(List<OrderRecord> listData, Context context){
 
         this.listData = listData;
         this.context = context;

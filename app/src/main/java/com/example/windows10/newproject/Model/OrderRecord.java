@@ -1,6 +1,6 @@
 package com.example.windows10.newproject.Model;
 
-public class Order {
+public class OrderRecord {
     private String ProductId ;
     private String ProductName ;
     private String Quantity;
@@ -9,12 +9,17 @@ public class Order {
 
 
 
-    public Order(String productId, String productName, String quantity, String price, String discount) {
+    public OrderRecord(String productId, String productName, String quantity, String price, String discount) {
+
         ProductId = productId;
         ProductName = productName;
         Quantity = quantity;
         Price = price;
         Discount = discount;
+    }
+
+    public OrderRecord() {
+
     }
 
     public String getProductId() {
@@ -55,5 +60,16 @@ public class Order {
 
     public void setDiscount(String discount) {
         Discount = discount;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderRecord.COLUMN_ID" + ":" +this.getProductId() + ","
+                + "OrderRecord.COLUMN_PRODUCTNAME" + ":" +this.getProductName() + ","
+                + "OrderRecord.COLUMN_QUANTITY" + ":" +this.getQuantity() + ","
+                + "OrderRecord.COLUMN_PRICE" + ":" +this.getPrice() + ","
+                + "OrderRecord.COLUMN_DISCOUNT" + ":" +this.getDiscount() + ","
+
+                ;
     }
 }
