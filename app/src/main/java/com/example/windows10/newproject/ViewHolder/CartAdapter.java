@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.example.windows10.newproject.Interface.ItemClickListener;
-import com.example.windows10.newproject.Model.OrderRecord;
+import com.example.windows10.newproject.OrderList;
 import com.example.windows10.newproject.R;
 
 import java.text.NumberFormat;
@@ -49,12 +49,13 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
 }
 
+
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
-    private List<OrderRecord> listData;
+    private OrderList listData;
     private Context context;
 
-    public CartAdapter(List<OrderRecord> listData, Context context){
+    public CartAdapter(OrderList listData, Context context){
 
         this.listData = listData;
         this.context = context;
@@ -71,19 +72,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        TextDrawable drawable = TextDrawable.builder().buildRound(""+listData.get(position).getQuantity(), Color.RED);
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRound(""+listData.getCart().get(position).getQuantity(), Color.RED);
         holder.img_cart_count.setImageDrawable(drawable);
 
-        Locale locale = new Locale("ms", "MY");
+        /*Locale locale = new Locale("ms", "MY");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        //int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
-        //holder.txt_price.setText(fmt.format(price));
-        holder.txt_cart_name.setText(listData.get(position).getProductName());
+        int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
+        holder.txt_price.setText(fmt.format(price));*/
+        holder.txt_cart_name.setText(listData.getCart().get(position).getProductName());
 
     }
 
     @Override
     public int getItemCount() {
-        return listData.size();
+        return listData.getCart().size();
     }
 }

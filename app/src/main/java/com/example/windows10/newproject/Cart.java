@@ -17,10 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.windows10.newproject.Common.Common;
-import com.example.windows10.newproject.Database.OrderContract;
-import com.example.windows10.newproject.Database.OrderDataSource;
-import com.example.windows10.newproject.Database.OrderRecordAdapter;
-import com.example.windows10.newproject.Model.OrderRecord;
+import com.example.windows10.newproject.OrderList;
 import com.example.windows10.newproject.Model.Request;
 import com.example.windows10.newproject.ViewHolder.CartAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -44,8 +41,7 @@ public class Cart extends AppCompatActivity {
     Button btnPlace;
 
     //OrderDataSource dataSource;
-    OrderList orderList = new OrderList();
-    List<OrderRecord> cart = new ArrayList<>();
+    List<OrderList> cart = new ArrayList<>();
     CartAdapter adapter;
 
 
@@ -69,14 +65,14 @@ public class Cart extends AppCompatActivity {
 
         loadListFood();
 
-        /*btnPlace.setOnClickListener(new View.OnClickListener() {
+        btnPlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showAlertDialog();
 
 
             }
-        });*/
+        });
 
     }
 
@@ -87,7 +83,7 @@ public class Cart extends AppCompatActivity {
         //OrderRecordAdapter adapter = new OrderRecordAdapter(this,R.layout.activity_cart, cart);
         //cart = new OrderDataSource(this).getAllOrder();
 
-        adapter = new CartAdapter(cart,this);
+
         //orderList.getCart();
 
         Gson gson = new Gson();
@@ -98,13 +94,14 @@ public class Cart extends AppCompatActivity {
         String recordStr = sharedPref.getString("order","");
 
         //Use Gson to convert Json string to object
-        OrderRecord or2 = gson.fromJson(recordStr, OrderRecord.class);
+        OrderList or2 = gson.fromJson(recordStr, OrderList.class);
         //Log.v("or2 is",""+ or2);
-        //Toast.makeText(Cart.this, "Added to Cart : "+or2.getProductName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(Cart.this, "Added to Cart : "+or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
 
-        cart.add(or2);
+        //cart.add();
+        adapter = new CartAdapter(or2,this);
         recyclerView.setAdapter(adapter);
-
+    //or2.getCart()
 
 
     }
@@ -128,20 +125,21 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 //Create new Request
-                Request re = new Request(
+                /*Request re = new Request(
                         Common.currentMember.getContact(),
                         Common.currentMember.getName(),
                         add.getText().toString(),
                         //txtTotalPrice.getText().toString(),
                         cart
-                );
+                );*/
 
                 Gson gson = new Gson();
                 //Submit to Firebase
-                requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
+
+                //requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
+
                 //Delete Cart
                 String record1 = " ";
-                SharedPreferences sharedPref = getSharedPreferences( "appData", Context.MODE_PRIVATE );
                 SharedPreferences.Editor prefEditor = getSharedPreferences( "appData", Context.MODE_PRIVATE ).edit();
                 // Save record1 as "order"
                 prefEditor.putString( "order", record1 );

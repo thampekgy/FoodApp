@@ -74,10 +74,12 @@ public class  LoginRider extends AppCompatActivity {
                                     if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
                                         Toast.makeText(LoginRider.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
-                                        String rid = snapshot.child("name").getValue().toString();
+                                        String name = snapshot.child("name").getValue().toString();
+                                        String email = snapshot.child("email").getValue().toString();
                                         Intent intent = new Intent(LoginRider.this, MainActivity.class);
+                                        intent.putExtra("Email", email);
                                         intent.putExtra("Phone", txtPhoneText);
-                                        intent.putExtra("name", rid);
+                                        intent.putExtra("name", name);
                                         startActivity(intent);
                                         finish();
 

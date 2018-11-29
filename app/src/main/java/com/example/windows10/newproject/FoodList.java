@@ -11,11 +11,15 @@ import android.widget.Toast;
 
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.Model.Food;
+import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.ViewHolder.FoodViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FoodList extends AppCompatActivity {
 
@@ -56,7 +60,7 @@ public class FoodList extends AppCompatActivity {
 
     }
 
-    private void loadListFood(String categoryId) {
+    private void loadListFood(String categoryId)  {
         adapter=new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class,R.layout.food_item,
                 FoodViewHolder.class,foodList.orderByChild("MenuId").equalTo(categoryId))  //like : SELECT * from Foods where MenuId =
         {
@@ -71,6 +75,10 @@ public class FoodList extends AppCompatActivity {
                     public void onClick(View view, int position, boolean isLongClick) {
                         //Get CategoryId and send to new Activity
                         Intent foodDetail= new Intent(FoodList.this,FoodDetail.class);
+                        //OrderList orderList = new OrderList();
+                        //List<OrderRecord> cart = new ArrayList<>();
+                        //foodDetail.putStringArrayListExtra("OrderList", orderList);
+                        //foodDetail.putStringArrayListExtra("Cart", cart);
                         foodDetail.putExtra("FoodId",adapter.getRef(position).getKey()); //send foodId to new Activity
                         startActivity(foodDetail);
                         //Toast.makeText(FoodList.this, ""+local.getName(), Toast.LENGTH_SHORT).show();

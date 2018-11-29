@@ -53,93 +53,126 @@ public class RegistrationMember extends AppCompatActivity {
 
 
 
-        final FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        final DatabaseReference table_member = database.getReference("Member");
 
         resSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog= new ProgressDialog(RegistrationMember.this);
-                mDialog.setMessage("Please waiting...");
-                mDialog.show();
-
-
-                table_member.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //check if already user email
-                        if(dataSnapshot.child(resContact.getText().toString()).exists()){
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationMember.this, "Email already registered...", Toast.LENGTH_SHORT).show();
-
-                        }
-                        else{
-                            mDialog.dismiss();
-                            String fullName = resFirstName.getText().toString() + resLastName.getText().toString();
-                            Member member = new Member(fullName, resEmail.getText().toString(), resPassword.getText().toString(), resContact.getText().toString(), 10);
-                            table_member.child(resContact.getText().toString()).setValue(member);
-                            Toast.makeText(RegistrationMember.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                validate();
 
             }
         });
 
-
-
-
-
     }
 
 
 
+    public void validate(){
 
-    public void Submit_register_click(View v)
-    {
-        final ProgressDialog progressDialog = ProgressDialog.show(RegistrationMember.this, "Please wait ....", "Processing...", true);
+        String fName = resFirstName.getText().toString();
+        String lName = resLastName.getText().toString();
+        String Contact = resContact.getText().toString();
+        String rEmail = resEmail.getText().toString();
+        String pass = resPassword.getText().toString();
+        String cPass = confirmPassword.getText().toString();
 
-        (firebaseAuth.createUserWithEmailAndPassword(resEmail.getText().toString(), resPassword.getText().toString()))
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        progressDialog.dismiss();
+        Boolean flag = true;
 
-                        if (task.isSuccessful()) {
+        if (fName.isEmpty()) {
+            flag = false;
+            Toast.makeText(RegistrationMember.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
+        }
 
-                            Intent i = new Intent(RegistrationMember.this, LoginActivity.class);
-                            startActivity(i);
+        if (lName.isEmpty()) {
+            flag = false;
+            Toast.makeText(RegistrationMember.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
+        }
 
-                        }
-                        else
-                        {
-                            Log.e("ERROR", task.getException().toString());
-                            Toast.makeText(RegistrationMember.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                        }
 
-                    }
-                });
+        if (!Contact.isEmpty()) {
+            if (Contact.length() < 10 || Contact.length() > 11) {
+                flag = false;
+                Toast.makeText(RegistrationMember.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationMember.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
 
+        }
+
+        if (!rEmail.isEmpty()) {
+
+            if ((!rEmail.contains("@")) || (!rEmail.contains(".com"))) {
+                flag = false;
+                Toast.makeText(RegistrationMember.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationMember.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!pass.isEmpty() && !cPass.isEmpty()) {
+
+            if (pass.length() > 8) {
+
+                if (!pass.equals(cPass)) {
+                    flag = false;
+                    Toast.makeText(RegistrationMember.this, "Password Not matching", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                flag = false;
+                Toast.makeText(RegistrationMember.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationMember.this, "Password Invalid.", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (flag == true)
+        {
+            checkFirebase();
+
+        }
 
     }
-   /* public void createMember(){
 
-        String fullName = resFirstName.getText().toString() + resLastName.getText().toString();
-        dbRef = FirebaseDatabase.getInstance().getReference();
-        //DatabaseReference ref = table_member.getReference("Member");
-        Member mem = new Member(fullName, resEmail.getText().toString(), resPassword.getText().toString(), resContact.getText().toString(), 10);
-        //String emailUser = resEmail.getText().toString();
-        dbRef.child("Member").push().setValue(mem);
+    public  void checkFirebase(){
+
+        final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        final DatabaseReference table_member = database.getReference("Member");
+
+        final ProgressDialog mDialog= new ProgressDialog(RegistrationMember.this);
+        mDialog.setMessage("Please waiting...");
+        mDialog.show();
+
+
+        table_member.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //check if already user email
+                if(dataSnapshot.child(resContact.getText().toString()).exists()){
+                    mDialog.dismiss();
+                    Toast.makeText(RegistrationMember.this, "Email already registered...", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    mDialog.dismiss();
+                    String fullName = resFirstName.getText().toString() + resLastName.getText().toString();
+                    Member member = new Member(fullName, resEmail.getText().toString(), resPassword.getText().toString(), resContact.getText().toString(), 10);
+                    table_member.child(resContact.getText().toString()).setValue(member);
+                    Toast.makeText(RegistrationMember.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
-*/
-
-
 
 }

@@ -62,6 +62,7 @@ public class  LoginActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
 
+                        String Pwd = txtPwd.getText().toString();
                         String txtPhoneText = txtPhone.getText().toString();
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -70,13 +71,16 @@ public class  LoginActivity extends AppCompatActivity {
                                     mDialog.dismiss();
 
 
-                                    if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
+                                    if (snapshot.child("password").getValue().equals(Pwd)) {
                                         Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
-                                        String mem = snapshot.child("name").getValue().toString();
+                                        String name = snapshot.child("name").getValue().toString();
+                                        String email = snapshot.child("email").getValue().toString();
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.putExtra("Password", Pwd);
+                                        intent.putExtra("Email", email);
                                         intent.putExtra("Phone", txtPhoneText);
-                                        intent.putExtra("name", mem);
+                                        intent.putExtra("name", name);
                                         startActivity(intent);
                                         finish();
 
@@ -110,31 +114,6 @@ public class  LoginActivity extends AppCompatActivity {
 
     }
 
-
-    public void email_sign_in_button_click(View v) {
-        /*final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
-
-        firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    progressDialog.dismiss();
-
-                    if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        //i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                        startActivity(i);
-                    } else {
-                        Log.e("ERROR", task.getException().toString());
-                        Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-        });*/
-
-
-    }
 
     public void joinUsRider_click(View v) {
         Intent intent = new Intent(LoginActivity.this, RegistrationRider.class);

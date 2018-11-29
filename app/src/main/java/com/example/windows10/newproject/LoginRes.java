@@ -73,10 +73,12 @@ public class  LoginRes extends AppCompatActivity {
                                     if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
                                         Toast.makeText(LoginRes.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
-                                        String own = snapshot.child("ownerName").getValue().toString();
+                                        String name = snapshot.child("ownerName").getValue().toString();
+                                        String email = snapshot.child("email").getValue().toString();
                                         Intent intent = new Intent(LoginRes.this, MainActivity.class);
+                                        intent.putExtra("Email", email);
                                         intent.putExtra("Phone", txtPhoneText);
-                                        intent.putExtra("name", own);
+                                        intent.putExtra("name", name);
                                         startActivity(intent);
                                         finish();
 

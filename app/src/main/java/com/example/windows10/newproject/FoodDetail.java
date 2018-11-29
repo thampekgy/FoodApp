@@ -1,6 +1,7 @@
 package com.example.windows10.newproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -48,6 +49,9 @@ public class FoodDetail extends AppCompatActivity {
     OrderDataSource dataSource = new OrderDataSource(this);
     Food currentFood;
 
+    OrderList orderList = new OrderList();
+    List<OrderRecord> cart = new ArrayList<>();
+
 
 
 
@@ -62,6 +66,8 @@ public class FoodDetail extends AppCompatActivity {
         foods=database.getReference("Foods");
 
 
+
+
         //View
         numberButton = (ElegantNumberButton) findViewById(R.id.number_button);
         btnCart= (FloatingActionButton) findViewById(R.id.btn_cart);
@@ -72,16 +78,7 @@ public class FoodDetail extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               /* dataSource.insertOrder(new OrderRecord(
-                        foodId,
-                        currentFood.getName(),
-                        numberButton.getNumber(),
-                        currentFood.getPrice(),
-                        currentFood.getDiscount()
-                ));*/
 
-               OrderList orderList = new OrderList();
-                List<OrderRecord> cart = new ArrayList<>();
                 cart.add(new OrderRecord(
                        foodId,
                        currentFood.getName(),
@@ -112,10 +109,10 @@ public class FoodDetail extends AppCompatActivity {
                 Log.v("recordStr is",""+ recordStr);
 
                 //Use Gson to convert Json string to object
-                OrderRecord or2 = gson.fromJson(recordStr, OrderRecord.class);
+                OrderList or2 = gson.fromJson(recordStr, OrderList.class);
                 Log.v("or2 is",""+ or2);
 
-                Toast.makeText(FoodDetail.this, "Added to Cart : "+or2.getProductName(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FoodDetail.this, "Added to Cart : "+or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
             }
         });
 

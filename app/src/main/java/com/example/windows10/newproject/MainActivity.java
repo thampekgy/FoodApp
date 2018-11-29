@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,15 +11,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.windows10.newproject.Common.Common;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,11 +24,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     TextView navPhone;
     //String phone;
     TextView txtFullName;
-
-
-
-
-
+    String name, email, phone, pwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +44,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 Intent cartIntent = new Intent(MainActivity.this, Cart.class);
                 startActivity(cartIntent);
 
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        //.setAction("Action", null).show();
 
             }
         });
@@ -66,13 +55,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View headerView= navigationView.getHeaderView(0);
         navPhone = (TextView)headerView.findViewById(R.id.navPhone);
         Intent myIntent = getIntent();
-        String no = myIntent.getStringExtra("Phone");
-        navPhone.setText(no);
+        phone = myIntent.getStringExtra("Phone");
+        navPhone.setText(phone);
 
         txtFullName= (TextView)headerView.findViewById(R.id.navFullName);
-        String name = myIntent.getStringExtra("name");
+         name = myIntent.getStringExtra("name");
         txtFullName.setText(name);
+
+        email = myIntent.getStringExtra("Email");
+        pwd = myIntent.getStringExtra("Password");
         //txtFullName.setText(Common.currentMember.getName());
+
+
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -108,6 +103,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+   /* public Bundle getMyData(){
+        Intent mIntent = new Intent(MainActivity.this, EditProfile.class);
+        Bundle bundle = mIntent.getExtras();
+        bundle.putString("Name", name);
+        bundle.putString("Email", email);
+        bundle.putString("Phone", phone);
+
+        *//*EditProfile edit = new EditProfile();
+        edit.setArguments(bundle);*//*
+        return bundle;
+
+
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -169,21 +178,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_editProfile:
-                fragment = new editProfile();
+                Intent intent2 = new Intent(MainActivity.this, EditProfile.class);
+                intent2.putExtra("Email", email);
+                intent2.putExtra("Phone", phone);
+                intent2.putExtra("Name", name);
+                intent2.putExtra("Password", pwd);
+                startActivity(intent2);
 
                 break;
             case R.id.nav_order:
                 //fragment = new Restaurant();
                 break;
             case R.id.nav_help:
-                Intent intent2 = new Intent(MainActivity.this, Help1.class);
-                startActivity(intent2);
+                Intent intent4 = new Intent(MainActivity.this, Help1.class);
+                startActivity(intent4);
 
                 break;
             case R.id.nav_about:
                 //fragment = new about();
-                Intent intent1 = new Intent(MainActivity.this, about.class);
-                startActivity(intent1);
+                Intent intent5 = new Intent(MainActivity.this, about.class);
+                startActivity(intent5);
 
                 break;
 
