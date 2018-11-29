@@ -199,7 +199,7 @@ public class RegistrationResOwner extends AppCompatActivity {
                     //Toast.makeText(RegistrationResOwner.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
                     //finish();
                     Toast.makeText(RegistrationResOwner.this, "Registration Successful.", Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(RegistrationResOwner.this, LoginActivity.class);
+                    Intent i = new Intent(RegistrationResOwner.this, LoginRes.class);
                     startActivity(i);
                 }
 

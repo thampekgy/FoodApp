@@ -28,7 +28,7 @@ import static com.example.windows10.newproject.Common.Common.currentMember;
 /**
  * A login screen that offers login via email/password.
  */
-public class  LoginActivity extends AppCompatActivity {
+public class  LoginRes extends AppCompatActivity {
 
     private EditText txtPhone;
     private EditText txtPwd;
@@ -49,40 +49,40 @@ public class  LoginActivity extends AppCompatActivity {
         txtPwd = (EditText) findViewById(R.id.password);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_member = database.getReference("Member");
+        final DatabaseReference table_owner = database.getReference("RestaurantOwner");
+
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog mDialog = new ProgressDialog(LoginActivity.this);
+                final ProgressDialog mDialog = new ProgressDialog(LoginRes.this);
                 mDialog.setMessage(("Please wait..."));
                 mDialog.show();
                 //Query query = table_member.child("Member").orderByChild();
-                table_member.addValueEventListener(new ValueEventListener() {
 
+                table_owner.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         String txtPhoneText = txtPhone.getText().toString();
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
-                                if (snapshot.child("contact").getValue().equals(txtPhoneText)) {
+                                if (snapshot.child("ownerContact").getValue().equals(txtPhoneText)) {
                                     mDialog.dismiss();
 
 
                                     if (snapshot.child("password").getValue().equals(txtPwd.getText().toString())) {
-                                        Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginRes.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
-                                        String mem = snapshot.child("name").getValue().toString();
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        String own = snapshot.child("ownerName").getValue().toString();
+                                        Intent intent = new Intent(LoginRes.this, MainActivity.class);
                                         intent.putExtra("Phone", txtPhoneText);
-                                        intent.putExtra("name", mem);
+                                        intent.putExtra("name", own);
                                         startActivity(intent);
                                         finish();
 
 
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginRes.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -96,53 +96,26 @@ public class  LoginActivity extends AppCompatActivity {
                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                     }
-
                 });
-
             }
         });
     }
 
 
     public void email_register_button_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationMember.class);
+        Intent intent = new Intent(LoginRes.this, RegistrationMember.class);
         startActivity(intent);
 
     }
 
 
-    public void email_sign_in_button_click(View v) {
-        /*final ProgressDialog progressDialog = ProgressDialog.show(LoginActivity.this, "Please wait...", "Proccessing...", true);
-
-        firebaseAuth.signInWithEmailAndPassword(txtEmailLogin.getText().toString(), txtPwd.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                    progressDialog.dismiss();
-
-                    if (task.isSuccessful()) {
-                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                        //i.putExtra("Email", firebaseAuth.getCurrentUser().getEmail());
-                        startActivity(i);
-                    } else {
-                        Log.e("ERROR", task.getException().toString());
-                        Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                }
-
-        });*/
-
-
-    }
-
     public void joinUsRider_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationRider.class);
+        Intent intent = new Intent(LoginRes.this, RegistrationRider.class);
         startActivity(intent);
     }
 
     public void joinUsRestaurantOwner_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationResOwner.class);
+        Intent intent = new Intent(LoginRes.this, RegistrationResOwner.class);
         startActivity(intent);
     }
 }

@@ -84,6 +84,8 @@ public class RegistrationRider extends AppCompatActivity {
                 DOB.setText(sdf.format(myCalendar.getTime()));
 
 
+
+
             }
         };
 
@@ -103,113 +105,148 @@ public class RegistrationRider extends AppCompatActivity {
         radioGenderButton = (RadioButton) findViewById(selectedId);
 
 
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_rider = database.getReference("DeliveryPerson");
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(RegistrationRider.this);
-                mDialog.setMessage("Please waiting...");
-                mDialog.show();
+                int nowYear = Calendar.getInstance().get(Calendar.YEAR);
+                int yearDOB = myCalendar.get(Calendar.YEAR);
 
+                int yearBal = nowYear - yearDOB;
+                if(yearBal >=18){
+                    validate();
+                }else{
+                    Toast.makeText(RegistrationRider.this, "Become a rider must 18 years old and above.", Toast.LENGTH_SHORT).show();
+                }
 
-                table_rider.addValueEventListener(new ValueEventListener() {
-                    String rName = riderName.getText().toString();
-                    String rContact = riderContact.getText().toString();
-                    String rEmail = riderEmail.getText().toString();
-                    String rDOB = DOB.getText().toString();
-                    String gName = guardianName.getText().toString();
-                    String gWho = guardianWho.getText().toString();
-                    String gContact = guardianContact.getText().toString();
-                    String pass = password.getText().toString();
-                    String cPass = confirmPassword.getText().toString();
-
-                    Boolean flag = true;
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (rName.isEmpty()) {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-
-                        if (!rContact.isEmpty()) {
-                            if (rContact.length() < 10 || rContact.length() > 11) {
-                                flag = false;
-                                Toast.makeText(RegistrationRider.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if (!rEmail.isEmpty()) {
-
-                            if ((!rEmail.contains("@")) || (!rEmail.contains(".com"))) {
-                                flag = false;
-                                Toast.makeText(RegistrationRider.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (!pass.isEmpty() && !cPass.isEmpty()) {
-
-                            if (pass.length() > 8) {
-
-                                if (!pass.equals(cPass)) {
-                                    flag = false;
-                                    Toast.makeText(RegistrationRider.this, "Password Not matching", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                flag = false;
-                                Toast.makeText(RegistrationRider.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Password Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (rDOB.isEmpty()) {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Insert the birthday date.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (gName.isEmpty() || gWho.isEmpty() || gContact.isEmpty()) {
-                            flag = false;
-                            Toast.makeText(RegistrationRider.this, "Emergency Information fields are required..", Toast.LENGTH_SHORT).show();
-                        }
-
-                        //check if already user email
-                        if (dataSnapshot.child(riderContact.getText().toString()).exists()) {
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationRider.this, "Email already registered...", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            mDialog.dismiss();
-                            Rider member = new Rider(riderName.getText().toString(), radioGenderButton.getText().toString(), riderContact.getText().toString(), spinCity.getSelectedItem().toString(), riderEmail.getText().toString(), DOB.getText().toString(), password.getText().toString(), guardianName.getText().toString(), guardianWho.getText().toString(), guardianContact.getText().toString());
-                            table_rider.child(riderContact.getText().toString()).setValue(member);
-                            Toast.makeText(RegistrationRider.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
             }
         });
 
     }
+
+    public void validate(){
+        String rName = riderName.getText().toString();
+        String rContact = riderContact.getText().toString();
+        String rEmail = riderEmail.getText().toString();
+        String rDOB = DOB.getText().toString();
+        String gName = guardianName.getText().toString();
+        String gWho = guardianWho.getText().toString();
+        String gContact = guardianContact.getText().toString();
+        String pass = password.getText().toString();
+        String cPass = confirmPassword.getText().toString();
+
+        Boolean flag = true;
+
+        if (rName.isEmpty()) {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
+        }
+
+
+        if (!rContact.isEmpty()) {
+            if (rContact.length() < 10 || rContact.length() > 11) {
+                flag = false;
+                Toast.makeText(RegistrationRider.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
+
+        }
+
+        if (!rEmail.isEmpty()) {
+
+            if ((!rEmail.contains("@")) || (!rEmail.contains(".com"))) {
+                flag = false;
+                Toast.makeText(RegistrationRider.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!pass.isEmpty() && !cPass.isEmpty()) {
+
+            if (pass.length() > 8) {
+
+                if (!pass.equals(cPass)) {
+                    flag = false;
+                    Toast.makeText(RegistrationRider.this, "Password Not matching", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                flag = false;
+                Toast.makeText(RegistrationRider.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
+            }
+
+        } else {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Password Invalid.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (rDOB.isEmpty()) {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Insert the birthday date.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (gName.isEmpty() || gWho.isEmpty() || gContact.isEmpty()) {
+            flag = false;
+            Toast.makeText(RegistrationRider.this, "Emergency Information fields are required..", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        if (flag == true)
+        {
+            checkFirebase();
+
+        }
+
+    }
+
+    public void checkFirebase(){
+
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_rider = database.getReference("DeliveryPerson");
+
+        final ProgressDialog mDialog = new ProgressDialog(RegistrationRider.this);
+        mDialog.setMessage("Please waiting...");
+        mDialog.show();
+
+
+        table_rider.addValueEventListener(new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
+                //check if already user email
+                if (dataSnapshot.child(riderContact.getText().toString()).exists()) {
+                    mDialog.dismiss();
+                    Toast.makeText(RegistrationRider.this, "Email already registered...", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    mDialog.dismiss();
+                    Rider rid = new Rider(riderName.getText().toString(), radioGenderButton.getText().toString(), riderContact.getText().toString(), spinCity.getSelectedItem().toString(), riderEmail.getText().toString(), DOB.getText().toString(), password.getText().toString(), guardianName.getText().toString(), guardianWho.getText().toString(), guardianContact.getText().toString());
+                    table_rider.child(riderContact.getText().toString()).setValue(rid);
+                    Toast.makeText(RegistrationRider.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(RegistrationRider.this, LoginRider.class);
+                    startActivity(i);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 }

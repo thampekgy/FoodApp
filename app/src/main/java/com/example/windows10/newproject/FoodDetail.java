@@ -113,7 +113,7 @@ public class FoodDetail extends AppCompatActivity {
 
                 //Use Gson to convert Json string to object
                 OrderRecord or2 = gson.fromJson(recordStr, OrderRecord.class);
-                //Log.v("or2 is",""+ or2);
+                Log.v("or2 is",""+ or2);
 
                 Toast.makeText(FoodDetail.this, "Added to Cart : "+or2.getProductName(), Toast.LENGTH_SHORT).show();
             }
