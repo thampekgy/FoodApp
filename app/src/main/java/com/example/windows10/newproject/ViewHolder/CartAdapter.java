@@ -51,7 +51,7 @@ class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickList
 
 public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
-    private List<OrderRecord> listData = new ArrayList<>();
+    private List<OrderRecord> listData;
     private Context context;
 
     public CartAdapter(List<OrderRecord> listData, Context context){
@@ -66,7 +66,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
     public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View itemView = inflater.inflate(R.layout.cart_layout, parent, false);
-
         return new CartViewHolder(itemView);
     }
 
@@ -77,8 +76,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
 
         Locale locale = new Locale("ms", "MY");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
-        holder.txt_price.setText(fmt.format(price));
+        //int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
+        //holder.txt_price.setText(fmt.format(price));
         holder.txt_cart_name.setText(listData.get(position).getProductName());
 
     }

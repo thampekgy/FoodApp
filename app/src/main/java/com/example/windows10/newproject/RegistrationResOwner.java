@@ -70,150 +70,20 @@ public class RegistrationResOwner extends AppCompatActivity {
 
 
     public void createRestaurantOwner() {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_owner = database.getReference("RestaurantOwner");
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final ProgressDialog mDialog = new ProgressDialog(RegistrationResOwner.this);
-                mDialog.setMessage("Please waiting...");
-                mDialog.show();
 
-
-
-                table_owner.addValueEventListener(new ValueEventListener() {
-
-
-                    String oName = ownerName.getText().toString();
-                    String oContact = ownerContact.getText().toString();
-                    String oEmail = ownerEmail.getText().toString();
-                    String rName = resName.getText().toString();
-                    String rAdress = resAddress.getText().toString();
-                    String rPostal = resPostal.getText().toString();
-                    String pass = password.getText().toString();
-                    String cPass = confirmPassword.getText().toString();
-                    Boolean flag = true;
-
-                    @Override
-
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (oName.isEmpty()) {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, " Owner Name Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (!oContact.isEmpty()) {
-                            if (oContact.length() < 10 || oContact.length() > 11) {
-                                flag = false;
-                                mDialog.dismiss();
-                                Toast.makeText(RegistrationResOwner.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
-                            }
-                        } else {
-                            flag = false;
-                            Toast.makeText(RegistrationResOwner.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                        if (!oEmail.isEmpty()) {
-
-                            if ((!oEmail.contains("@")) || (!oEmail.contains(".com"))) {
-                                flag = false;
-                                mDialog.dismiss();
-                                Toast.makeText(RegistrationResOwner.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
-                            }
-
-                        } else {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-                        if (!pass.isEmpty() && !cPass.isEmpty()) {
-
-                            if (pass.length() > 8) {
-
-                                if (!pass.equals(cPass)) {
-                                    flag = false;
-                                    mDialog.dismiss();
-                                    Toast.makeText(RegistrationResOwner.this, "Password Not matching", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                flag = false;
-                                mDialog.dismiss();
-                                Toast.makeText(RegistrationResOwner.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
-
-                            }
-                        } else {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, "Password Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-
-                        if (rName.isEmpty()) {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, "Restaurant Name Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (rAdress.isEmpty()) {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, " Restaurant Address Invalid.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        if (rPostal.isEmpty()) {
-                            //if (rPostal.length() > 5)
-                                flag = false;
-                            mDialog.dismiss();
-                            //Toast.makeText(RegistrationResOwner.this, " Postal too long or short.", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(RegistrationResOwner.this, " Postal Invalid.", Toast.LENGTH_SHORT).show();
-                        } /*else {
-                                flag = false;
-                                mDialog.dismiss();
-                                Toast.makeText(RegistrationResOwner.this, " Postal Invalid.", Toast.LENGTH_SHORT).show();
-                            }*/
-
-                        //check if already user email
-                        if (dataSnapshot.child(ownerContact.getText().toString()).exists()) {
-                            flag = false;
-                            mDialog.dismiss();
-                            Toast.makeText(RegistrationResOwner.this, "Email already registered...", Toast.LENGTH_SHORT).show();
-
-                        }else {
-
-                                mDialog.dismiss();
-                                RestaurantOwner restaurantOwner = new RestaurantOwner(ownerName.getText().toString(), radioGenderButton.getText().toString(),
-                                        ownerContact.getText().toString(), ownerEmail.getText().toString(), password.getText().toString(), resName.getText().toString(),
-                                        resAddress.getText().toString(), resPostal.getText().toString(), spinCity.getSelectedItem().toString(), 0.00);
-                                table_owner.child(ownerContact.getText().toString()).setValue(restaurantOwner);
-                                //Toast.makeText(RegistrationResOwner.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
-                                //finish();
-                                Toast.makeText(RegistrationResOwner.this, "Registration Successful.", Toast.LENGTH_LONG).show();
-                                Intent i = new Intent(RegistrationResOwner.this, LoginActivity.class);
-                                startActivity(i);
-                            }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                validate();
 
             }
         });
+
     }
 
-
-
-
-
-    /*public void resOwnerSubmit_click(View v)  {
+    public void validate(){
 
         String oName = ownerName.getText().toString();
         String oContact = ownerContact.getText().toString();
@@ -223,20 +93,20 @@ public class RegistrationResOwner extends AppCompatActivity {
         String rPostal = resPostal.getText().toString();
         String pass = password.getText().toString();
         String cPass = confirmPassword.getText().toString();
-
         Boolean flag = true;
 
+
         if (oName.isEmpty()) {
-            flag=false;
+            flag = false;
             Toast.makeText(RegistrationResOwner.this, " Owner Name Invalid.", Toast.LENGTH_SHORT).show();
         }
 
-        if ( !oContact.isEmpty()) {
+        if (!oContact.isEmpty()) {
             if (oContact.length() < 10 || oContact.length() > 11) {
                 flag = false;
                 Toast.makeText(RegistrationResOwner.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
             flag = false;
             Toast.makeText(RegistrationResOwner.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
 
@@ -245,71 +115,103 @@ public class RegistrationResOwner extends AppCompatActivity {
         if (!oEmail.isEmpty()) {
 
             if ((!oEmail.contains("@")) || (!oEmail.contains(".com"))) {
-                flag=false;
+                flag = false;
                 Toast.makeText(RegistrationResOwner.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
             }
 
         } else {
-            flag=false;
+            flag = false;
             Toast.makeText(RegistrationResOwner.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
         }
-        if (!pass.isEmpty() && !cPass.isEmpty()){
+        if (!pass.isEmpty() && !cPass.isEmpty()) {
 
             if (pass.length() > 8) {
 
                 if (!pass.equals(cPass)) {
                     flag = false;
                     Toast.makeText(RegistrationResOwner.this, "Password Not matching", Toast.LENGTH_SHORT).show();
-                } else{
-                    flag = false;
-                    Toast.makeText(RegistrationResOwner.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
                 }
-            }
+            } else {
+                flag = false;
+                Toast.makeText(RegistrationResOwner.this, "Password length must more than 8.", Toast.LENGTH_SHORT).show();
 
-        }else
-        {
-            flag=false;
+            }
+        } else {
+            flag = false;
             Toast.makeText(RegistrationResOwner.this, "Password Invalid.", Toast.LENGTH_SHORT).show();
         }
 
 
         if (rName.isEmpty()) {
-            flag=false;
+            flag = false;
             Toast.makeText(RegistrationResOwner.this, "Restaurant Name Invalid.", Toast.LENGTH_SHORT).show();
         }
 
         if (rAdress.isEmpty()) {
-            flag=false;
+            flag = false;
             Toast.makeText(RegistrationResOwner.this, " Restaurant Address Invalid.", Toast.LENGTH_SHORT).show();
         }
 
-        if (!rPostal.isEmpty()) {
-            if(rPostal.length() <= 4 || rPostal.length() >=6)
-            flag=false;
-            Toast.makeText(RegistrationResOwner.this, " Postal too long or short.", Toast.LENGTH_SHORT).show();
-        }else
-        {
-            flag=false;
+        if (rPostal.isEmpty()) {
+            //if (rPostal.length() > 5)
+            flag = false;
+            //Toast.makeText(RegistrationResOwner.this, " Postal too long or short.", Toast.LENGTH_SHORT).show();
             Toast.makeText(RegistrationResOwner.this, " Postal Invalid.", Toast.LENGTH_SHORT).show();
         }
 
         if (flag == true)
         {
-            createRestaurantOwner();
-            Toast.makeText(RegistrationResOwner.this, "Registration Successful.", Toast.LENGTH_LONG).show();
-            Intent i = new Intent(RegistrationResOwner.this, LoginActivity.class);
-            startActivity(i);
-        }
+            checkFirebase();
 
+        }
     }
 
-    public void createRestaurantOwner(){
+    public void checkFirebase(){
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        final DatabaseReference table_owner = database.getReference("RestaurantOwner");
 
-        dbRef = FirebaseDatabase.getInstance().getReference();
-        RestaurantOwner restaurantOwner = new RestaurantOwner(ownerName.getText().toString(), radioGenderButton.getText().toString(), ownerContact.getText().toString(), ownerEmail.getText().toString(), password.getText().toString(), resName.getText().toString(), resAddress.getText().toString(), resPostal.getText().toString(), spinCity.getSelectedItem().toString(), 0.00);
-        dbRef.child("RestaurantOwner").push().setValue(restaurantOwner);
-    }*/
+        final ProgressDialog mDialog = new ProgressDialog(RegistrationResOwner.this);
+        mDialog.setMessage("Please waiting...");
+        mDialog.show();
 
+
+
+        table_owner.addValueEventListener(new ValueEventListener() {
+
+            @Override
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                //check if already user email
+                if (dataSnapshot.child(ownerContact.getText().toString()).exists()) {
+
+                    mDialog.dismiss();
+                    Toast.makeText(RegistrationResOwner.this, "Email already registered...", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    mDialog.dismiss();
+                    RestaurantOwner restaurantOwner = new RestaurantOwner(ownerName.getText().toString(), radioGenderButton.getText().toString(),
+                            ownerContact.getText().toString(), ownerEmail.getText().toString(), password.getText().toString(), resName.getText().toString(),
+                            resAddress.getText().toString(), resPostal.getText().toString(), spinCity.getSelectedItem().toString(), 0.00);
+                    table_owner.child(ownerContact.getText().toString()).setValue(restaurantOwner);
+                    //Toast.makeText(RegistrationResOwner.this, "Sign up successfully !!! ", Toast.LENGTH_SHORT).show();
+                    //finish();
+                    Toast.makeText(RegistrationResOwner.this, "Registration Successful.", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(RegistrationResOwner.this, LoginActivity.class);
+                    startActivity(i);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 }
 

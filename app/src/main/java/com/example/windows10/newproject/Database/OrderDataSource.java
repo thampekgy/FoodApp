@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.Database.OrderContract.Order;
@@ -50,9 +52,11 @@ public class OrderDataSource {
         }
 
         public List<OrderRecord> getAllOrder() {
-            List<OrderRecord> records = new ArrayList<OrderRecord>();
-            Cursor cursor = database.query(Order.TABLE_NAME, allColumn, null,
-                    null, null, null, null);
+
+            List<OrderRecord> records = new ArrayList<>();
+            database= dbHelper.getWritableDatabase();
+            Cursor cursor = database.query(OrderContract.Order.TABLE_NAME,allColumn,null,null,null,null,null);
+
             cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {

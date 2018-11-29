@@ -12,6 +12,7 @@ public class OrderSQLHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "OrderDetail.db";
+
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + Order.TABLE_NAME + "(" +
                     OrderContract.Order.COLUMN_ID + " TEXT," +
@@ -22,12 +23,15 @@ public class OrderSQLHelper extends SQLiteOpenHelper {
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + Order.TABLE_NAME;
+
+
     public OrderSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
 
 
     }
+
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {

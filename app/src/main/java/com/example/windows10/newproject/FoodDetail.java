@@ -1,22 +1,33 @@
 package com.example.windows10.newproject;
 
-import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.windows10.newproject.Database.OrderContract;
+import com.example.windows10.newproject.Database.OrderDataSource;
+import com.example.windows10.newproject.Database.OrderSQLHelper;
 import com.example.windows10.newproject.Model.Food;
+import com.example.windows10.newproject.Model.OrderRecord;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FoodDetail extends AppCompatActivity {
 
@@ -27,13 +38,17 @@ public class FoodDetail extends AppCompatActivity {
     FloatingActionButton btnCart;
     ElegantNumberButton numberButton ;
     String num;
-
+    int orderedQuantity;
 
     String foodId="" ;
     FirebaseDatabase database ;
     DatabaseReference foods;
 
+    OrderSQLHelper orderdb;
+    OrderDataSource dataSource = new OrderDataSource(this);
     Food currentFood;
+
+
 
 
     @Override
@@ -41,10 +56,7 @@ public class FoodDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
         setTitle("Food Detail");
-
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference table_member = database.getReference("Member");
-
+        orderdb = new OrderSQLHelper(this);
 
         database=FirebaseDatabase.getInstance();
         foods=database.getReference("Foods");
@@ -54,24 +66,56 @@ public class FoodDetail extends AppCompatActivity {
         numberButton = (ElegantNumberButton) findViewById(R.id.number_button);
         btnCart= (FloatingActionButton) findViewById(R.id.btn_cart);
 
-
-        /*numberButton.setOnClickListener(new ElegantNumberButton.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                num = numberButton.getNumber();
-                //Toast.makeText(FoodDetail.this, "welcome "+num, Toast.LENGTH_SHORT).show();
-            }
-
-        });*/
+        //num = numberButton.getNumber();
+        //orderedQuantity = Integer.parseInt(num);
 
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                final ProgressDialog mDialog = new ProgressDialog(FoodDetail.this);
-                mDialog.setMessage(("Please wait..."));
-                mDialog.show();
-                //Query query = table_member.child("Member").orderByChild();
-                table_member.addValueEventListener(new ValueEventListener() {
+            public void onClick(View view) {
+               /* dataSource.insertOrder(new OrderRecord(
+                        foodId,
+                        currentFood.getName(),
+                        numberButton.getNumber(),
+                        currentFood.getPrice(),
+                        currentFood.getDiscount()
+                ));*/
+
+               OrderList orderList = new OrderList();
+                List<OrderRecord> cart = new ArrayList<>();
+                cart.add(new OrderRecord(
+                       foodId,
+                       currentFood.getName(),
+                       numberButton.getNumber(),
+                       currentFood.getPrice(),
+                       currentFood.getDiscount()
+               ));
+                orderList.setCart(cart);
+
+
+               //Library to convert object to json and json to object
+                Gson gson = new Gson();
+
+                //Json string from OrderRecord object
+                String record1 = gson.toJson(orderList);
+
+
+                //Create new sharedprefernces  or get existing
+                SharedPreferences sharedPref = getSharedPreferences( "appData", Context.MODE_PRIVATE );
+                SharedPreferences.Editor prefEditor = getSharedPreferences( "appData", Context.MODE_PRIVATE ).edit();
+                // Save record1 as "order"
+                prefEditor.putString( "order", record1 );
+                prefEditor.commit();
+
+                //Getting
+
+                String recordStr = sharedPref.getString("order","");
+                Log.v("recordStr is",""+ recordStr);
+
+                //Use Gson to convert Json string to object
+                OrderRecord or2 = gson.fromJson(recordStr, OrderRecord.class);
+                //Log.v("or2 is",""+ or2);
+
+                Toast.makeText(FoodDetail.this, "Added to Cart : "+or2.getProductName(), Toast.LENGTH_SHORT).show();
             }
         });
 
