@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(View view) {
 
                 Intent cartIntent = new Intent(MainActivity.this, Cart.class);
+                cartIntent.putExtra("Phone", phone);
+                cartIntent.putExtra("Name", name);
                 startActivity(cartIntent);
 
 
@@ -191,6 +193,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_help:
                 Intent intent4 = new Intent(MainActivity.this, Help1.class);
+                intent4.putExtra("Email", email);
+                intent4.putExtra("Phone", phone);
+                intent4.putExtra("Name", name);
                 startActivity(intent4);
 
                 break;

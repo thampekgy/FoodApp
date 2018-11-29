@@ -16,6 +16,7 @@ public class ReportDeliverIssues extends AppCompatActivity {
 
     private EditText yName, yContact, yEmail, yComplain;
     private Button btnSubmit;
+    String name1, email1, contact1;
 
 
 
@@ -24,6 +25,7 @@ public class ReportDeliverIssues extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_deliver_issues);
         setTitle("Report Delivery Issues");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         yName = (EditText) findViewById(R.id.yName);
         yContact = (EditText) findViewById(R.id.yContact);
@@ -34,6 +36,14 @@ public class ReportDeliverIssues extends AppCompatActivity {
         final FirebaseDatabase database =  FirebaseDatabase.getInstance();
         final DatabaseReference table_com = database.getReference("Complain");
 
+        name1 = getIntent().getStringExtra("Name");
+        yName.setText(name1);
+        contact1 = getIntent().getStringExtra("Phone");
+        yContact.setText(contact1);
+        email1 = getIntent().getStringExtra("Email");
+        yEmail.setText(email1);
+
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +52,7 @@ public class ReportDeliverIssues extends AppCompatActivity {
                 String email = yEmail.getText().toString();
                 String comp = yComplain.getText().toString();
                 boolean flag = true;
-
+/*
                 if (name.isEmpty()) {
                     flag = false;
                     Toast.makeText(ReportDeliverIssues.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
@@ -69,7 +79,7 @@ public class ReportDeliverIssues extends AppCompatActivity {
                 } else {
                     flag = false;
                     Toast.makeText(ReportDeliverIssues.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
-                }
+                }*/
 
                 if (comp.isEmpty()) {
                     flag = false;

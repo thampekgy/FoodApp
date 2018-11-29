@@ -40,8 +40,10 @@ public class Cart extends AppCompatActivity {
     TextView txtTotalPrice;
     Button btnPlace;
 
-    //OrderDataSource dataSource;
-    List<OrderList> cart = new ArrayList<>();
+    String name1, phone1;
+
+    //FavorDataSource dataSource;
+    OrderList or2;
     CartAdapter adapter;
 
 
@@ -63,6 +65,9 @@ public class Cart extends AppCompatActivity {
         txtTotalPrice = (TextView) findViewById(R.id.total);
         btnPlace = (Button) findViewById(R.id.btn_place_order);
 
+        name1 = getIntent().getStringExtra("Name");
+        phone1 = getIntent().getStringExtra("Phone");
+
         loadListFood();
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
@@ -80,8 +85,8 @@ public class Cart extends AppCompatActivity {
 
         //dataSource.open();
         //final List<OrderRecord> cart = dataSource.getAllOrder();
-        //OrderRecordAdapter adapter = new OrderRecordAdapter(this,R.layout.activity_cart, cart);
-        //cart = new OrderDataSource(this).getAllOrder();
+        //FavorRecordAdapter adapter = new FavorRecordAdapter(this,R.layout.activity_cart, cart);
+        //cart = new FavorDataSource(this).getAllOrder();
 
 
         //orderList.getCart();
@@ -94,9 +99,9 @@ public class Cart extends AppCompatActivity {
         String recordStr = sharedPref.getString("order","");
 
         //Use Gson to convert Json string to object
-        OrderList or2 = gson.fromJson(recordStr, OrderList.class);
+        or2 = gson.fromJson(recordStr, OrderList.class);
         //Log.v("or2 is",""+ or2);
-        Toast.makeText(Cart.this, "Added to Cart : "+or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(Cart.this, "Added to Cart : "+or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
 
         //cart.add();
         adapter = new CartAdapter(or2,this);
@@ -125,18 +130,17 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int i) {
                 //Create new Request
-                /*Request re = new Request(
-                        Common.currentMember.getContact(),
-                        Common.currentMember.getName(),
+                Request re = new Request(
+                        phone1,
+                        name1,
                         add.getText().toString(),
-                        //txtTotalPrice.getText().toString(),
-                        cart
-                );*/
+                        or2
+                );
 
                 Gson gson = new Gson();
                 //Submit to Firebase
 
-                //requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
+                requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
 
                 //Delete Cart
                 String record1 = " ";

@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.example.windows10.newproject.Model.Member;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +42,10 @@ public class EditProfile extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-        setTitle("Manage Profile");
+        getSupportActionBar().setTitle("Manage Profile");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         database = FirebaseDatabase.getInstance();
         members = database.getReference("Member");
@@ -50,6 +54,8 @@ public class EditProfile extends AppCompatActivity {
         email = (EditText) findViewById(R.id.editText_email);
         contact = (EditText) findViewById(R.id.editText_contactNumber);
         submit = (Button) findViewById(R.id.btnSubmit);
+
+
 
 
         //Bundle result = main.getMyData();
@@ -74,7 +80,9 @@ public class EditProfile extends AppCompatActivity {
         });
 
 
+
     }
+
 
     public void push(){
         final FirebaseDatabase database =  FirebaseDatabase.getInstance();

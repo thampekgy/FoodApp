@@ -1,5 +1,7 @@
 package com.example.windows10.newproject.Model;
 
+import com.example.windows10.newproject.OrderList;
+
 import java.util.List;
 
 public class Request {
@@ -7,13 +9,13 @@ public class Request {
     private String name;
     private String address;
     //private String total;
-    private List<OrderRecord> foods; //list of food order
+    OrderList foods; //list of food order
 
     public Request(){
 
     }
 
-    public Request(String phone, String name, String address, List<OrderRecord> foods) {
+    public Request(String phone, String name, String address, OrderList foods) {
         this.phone = phone;
         this.name = name;
         this.address = address;
@@ -53,11 +55,11 @@ public class Request {
         this.total = total;
     }*/
 
-    public List<OrderRecord> getFoods() {
+    public OrderList getFoods() {
         return foods;
     }
 
-    public void setFoods(List<OrderRecord> foods) {
+    public void setFoods(OrderList foods) {
         this.foods = foods;
     }
 }

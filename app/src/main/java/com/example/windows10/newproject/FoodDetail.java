@@ -1,7 +1,6 @@
 package com.example.windows10.newproject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,9 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.example.windows10.newproject.Database.OrderContract;
-import com.example.windows10.newproject.Database.OrderDataSource;
-import com.example.windows10.newproject.Database.OrderSQLHelper;
+import com.example.windows10.newproject.Database.FavorDataSource;
+import com.example.windows10.newproject.Database.FavorSQLHelper;
 import com.example.windows10.newproject.Model.Food;
 import com.example.windows10.newproject.Model.OrderRecord;
 import com.google.firebase.database.DataSnapshot;
@@ -45,8 +43,8 @@ public class FoodDetail extends AppCompatActivity {
     FirebaseDatabase database ;
     DatabaseReference foods;
 
-    OrderSQLHelper orderdb;
-    OrderDataSource dataSource = new OrderDataSource(this);
+    FavorSQLHelper orderdb;
+    FavorDataSource dataSource = new FavorDataSource(this);
     Food currentFood;
 
     OrderList orderList = new OrderList();
@@ -60,7 +58,8 @@ public class FoodDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_detail);
         setTitle("Food Detail");
-        orderdb = new OrderSQLHelper(this);
+
+        orderdb = new FavorSQLHelper(this);
 
         database=FirebaseDatabase.getInstance();
         foods=database.getReference("Foods");

@@ -10,5 +10,7 @@ public class FAQs extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_faqs);
         setTitle("FAQ");
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

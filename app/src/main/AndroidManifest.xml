@@ -43,7 +43,8 @@
             android:label="Register Restaurant Owner" />
         <activity
             android:name=".FoodList"
-            android:label="Food List" />
+            android:label="Food List"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".FoodDetail"
             android:label="Food Detail" />
@@ -52,19 +53,24 @@
             android:label="Cart" />
         <activity
             android:name=".FAQs"
-            android:label="FAQs" />
+            android:label="FAQs"
+            android:parentActivityName=".Help1"/>
         <activity
             android:name=".ReportDeliverIssues"
-            android:label="Report Delivery Issues" />
+            android:label="Report Delivery Issues"
+            android:parentActivityName=".Help1" />
         <activity
             android:name=".about"
-            android:label="About" />
+            android:label="About"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name=".Help1"
-            android:label="Help" />
+            android:label="Help"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".LoginRes" />
         <activity android:name=".LoginRider"></activity>
-        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".EditProfile"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.windows10.newproject.Database.FavorDataSource;
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.Model.Food;
 import com.example.windows10.newproject.Model.OrderRecord;
@@ -31,6 +32,7 @@ public class FoodList extends AppCompatActivity {
 
     String categoryId="";
 
+    FavorDataSource favor ;
     FirebaseRecyclerAdapter<Food,FoodViewHolder> adapter;
 
 
@@ -39,6 +41,7 @@ public class FoodList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_list);
         setTitle("Food List");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         database =FirebaseDatabase.getInstance();
         foodList=database.getReference("Foods");
@@ -65,21 +68,42 @@ public class FoodList extends AppCompatActivity {
                 FoodViewHolder.class,foodList.orderByChild("MenuId").equalTo(categoryId))  //like : SELECT * from Foods where MenuId =
         {
             @Override
-            protected void populateViewHolder(FoodViewHolder viewHolder, Food model, int position) {
+            protected void populateViewHolder(final FoodViewHolder viewHolder, final Food model, final int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.food_image);
+
+                //add favor
+
+               /* if (favor.isFavor(adapter.getRef(position).getKey()))
+                    viewHolder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+
+                //click to change state of favor
+                viewHolder.fav.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (favor.isFavor(adapter.getRef(position).getKey())){
+
+                            favor.insertFavor(adapter.getRef(position).getKey());
+                            viewHolder.fav.setImageResource(R.drawable.ic_favorite_black_24dp);
+                            Toast.makeText(FoodList.this, ""+model.getName()+" was added to Favorites.", Toast.LENGTH_SHORT);
+                        }else
+                        {
+                            favor.removeFavor(adapter.getRef(position).getKey());
+                            viewHolder.fav.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                            Toast.makeText(FoodList.this, ""+model.getName()+" was remove from Favorites.", Toast.LENGTH_SHORT);
+                        }
+
+                    }
+                });*/
 
                 final Food local =model ;
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
+                    public void onClick(View view, final int position, boolean isLongClick) {
                         //Get CategoryId and send to new Activity
-                        Intent foodDetail= new Intent(FoodList.this,FoodDetail.class);
-                        //OrderList orderList = new OrderList();
-                        //List<OrderRecord> cart = new ArrayList<>();
-                        //foodDetail.putStringArrayListExtra("OrderList", orderList);
-                        //foodDetail.putStringArrayListExtra("Cart", cart);
-                        foodDetail.putExtra("FoodId",adapter.getRef(position).getKey()); //send foodId to new Activity
+                        final Intent foodDetail= new Intent(FoodList.this,FoodDetail.class);
+
+                            foodDetail.putExtra("FoodId",adapter.getRef(position).getKey()); //send foodId to new Activity
                         startActivity(foodDetail);
                         //Toast.makeText(FoodList.this, ""+local.getName(), Toast.LENGTH_SHORT).show();
 

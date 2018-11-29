@@ -12,7 +12,7 @@ import com.example.windows10.newproject.R;
 public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView food_name;
-    public ImageView food_image ;
+    public ImageView food_image, fav;
 
     private ItemClickListener itemClickListener;
 
@@ -24,6 +24,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
         food_name=itemView.findViewById(R.id.food_name) ;
         food_image = itemView.findViewById(R.id.food_image);
+        fav = itemView.findViewById(R.id.fav);
 
         itemView.setOnClickListener(this);
     }

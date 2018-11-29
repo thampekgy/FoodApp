@@ -4,28 +4,22 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.windows10.newproject.Model.OrderRecord;
-import com.example.windows10.newproject.Database.OrderContract.Order;
 
 
-public class OrderSQLHelper extends SQLiteOpenHelper {
+public class FavorSQLHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "OrderDetail.db";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + Order.TABLE_NAME + "(" +
-                    OrderContract.Order.COLUMN_ID + " TEXT," +
-                    Order.COLUMN_PRODUCTNAME + " TEXT" +
-                    Order.COLUMN_QUANTITY + "TEXT" +
-                    Order.COLUMN_PRICE + "TEXT" +
-                    Order.COLUMN_DISCOUNT + "TEXT)" ;
+            "CREATE TABLE " + FavorContract.Favor1.TABLE_NAME + "(" +
+                    FavorContract.Favor1.COLUMN_ID + " TEXT)";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + Order.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + FavorContract.Favor1.TABLE_NAME;
 
 
-    public OrderSQLHelper(Context context) {
+    public FavorSQLHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
 

@@ -9,19 +9,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.windows10.newproject.Model.Favor;
 import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.R;
 
 import java.util.List;
 
-    public class OrderRecordAdapter extends ArrayAdapter<OrderRecord> {
-        public OrderRecordAdapter(Activity context, int resource, List<OrderRecord>
+    public class FavorRecordAdapter extends ArrayAdapter<Favor> {
+        public FavorRecordAdapter(Activity context, int resource, List<Favor>
                 list) {
             super(context, resource, list);
         }
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            OrderRecord orderRecord = getItem(position);
+            Favor favorRecord = getItem(position);
             if(convertView == null){
                 convertView = LayoutInflater.from(getContext()).
                         inflate(R.layout.cart_layout,
@@ -36,8 +37,7 @@ import java.util.List;
             txtFoodName = (TextView)convertView.findViewById(R.id.cart_item_name);
             txtFoodPrice = (TextView) convertView.findViewById(R.id.cart_item_price);
 
-            txtFoodName.setText(orderRecord.getProductName());
-            txtFoodPrice.setText(orderRecord.getPrice());
+            txtFoodName.setText(favorRecord.getFoodID());
 
 
 //            textViewName.setText("Name:"+userRecord.getName());
