@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:hint="Contact Number"
             android:ems="10"
+            android:maxLength="11"
             android:inputType="phone"
             android:textSize="18sp"
             android:textAppearance="@style/TextAppearance.AppCompat" />

@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Contact Number"
+            android:maxLength="10"
             android:inputType="phone"
             android:paddingTop="50sp"
             android:textSize="18sp" />

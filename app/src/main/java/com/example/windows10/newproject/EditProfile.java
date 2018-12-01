@@ -46,16 +46,14 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-
+        String key = getIntent().getExtras().get("Phone").toString();
         database = FirebaseDatabase.getInstance();
-        members = database.getReference("Member");
+        members = database.getReference("Member").child(key);
 
         name = (EditText) findViewById(R.id.editText_name);
         email = (EditText) findViewById(R.id.editText_email);
         contact = (EditText) findViewById(R.id.editText_contactNumber);
         submit = (Button) findViewById(R.id.btnSubmit);
-
-
 
 
         //Bundle result = main.getMyData();
@@ -72,46 +70,53 @@ public class EditProfile extends AppCompatActivity {
         pwd = getIntent().getStringExtra("Password");
 
 
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                push();
-            }
-        });
-
 
 
     }
 
 
-    public void push(){
-        final FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        final DatabaseReference table_member = database.getReference("Member");
+    public void btnSubmitUpdate_Click(View v){
+        //final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        //final DatabaseReference table_member = database.getReference("Member").child(no);
 
 
-        final ProgressDialog mDialog= new ProgressDialog(EditProfile.this);
-        mDialog.setMessage("Please waiting...");
-        mDialog.show();
+
+        //table_member.addValueEventListener(new ValueEventListener() {
+
+            //@Override
+            //public void onDataChange(DataSnapshot dataSnapshot) {
 
 
-        table_member.addValueEventListener(new ValueEventListener() {
+                //mDialog.dismiss();
 
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+                //table_member.removeValue();
 
-                    mDialog.dismiss();
-                    Member member = new Member(name.getText().toString(), email.getText().toString(), pwd, contact.getText().toString(),10);
-                    table_member.child(contact.getText().toString()).setValue(member);
-                    Toast.makeText(EditProfile.this, "Updated!!! ", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
+                //create
+                //Member member = new Member(name.getText().toString(), email.getText().toString(), pwd, contact.getText().toString(),10);
+                   //String member = members.updateChildren();
+                members.child("name").setValue(name.getText().toString());
+                members.child("email").setValue(email.getText().toString());
 
 
-            @Override
+
+
+
+                /*database = FirebaseDatabase.getInstance();
+                members = database.getReference().child("Member");
+                members.child("name").setValue(name.getText().toString());*/
+
+
+
+                 //Toast.makeText(EditProfile.this, "Updated!!! ", Toast.LENGTH_SHORT).show();
+                 //finish();
+                //}
+
+
+            /*@Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
     }
 
 }
