@@ -30,7 +30,8 @@ import com.google.firebase.database.ValueEventListener;
  */
 public class EditProfile extends AppCompatActivity {
 
-    EditText name, email, contact;
+    EditText name, email;
+    TextView contact;
     String no, name1, email1, pwd;
     Button submit;
 
@@ -52,7 +53,7 @@ public class EditProfile extends AppCompatActivity {
 
         name = (EditText) findViewById(R.id.editText_name);
         email = (EditText) findViewById(R.id.editText_email);
-        contact = (EditText) findViewById(R.id.editText_contactNumber);
+        contact = (TextView) findViewById(R.id.editText_contactNumber);
         submit = (Button) findViewById(R.id.btnSubmit);
 
 
@@ -76,47 +77,13 @@ public class EditProfile extends AppCompatActivity {
 
 
     public void btnSubmitUpdate_Click(View v){
-        //final FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        //final DatabaseReference table_member = database.getReference("Member").child(no);
 
-
-
-        //table_member.addValueEventListener(new ValueEventListener() {
-
-            //@Override
-            //public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                //mDialog.dismiss();
-
-                //table_member.removeValue();
-
-                //create
-                //Member member = new Member(name.getText().toString(), email.getText().toString(), pwd, contact.getText().toString(),10);
-                   //String member = members.updateChildren();
                 members.child("name").setValue(name.getText().toString());
                 members.child("email").setValue(email.getText().toString());
 
+                Toast.makeText(EditProfile.this, "Updated !!!", Toast.LENGTH_SHORT).show();
 
 
-
-
-                /*database = FirebaseDatabase.getInstance();
-                members = database.getReference().child("Member");
-                members.child("name").setValue(name.getText().toString());*/
-
-
-
-                 //Toast.makeText(EditProfile.this, "Updated!!! ", Toast.LENGTH_SHORT).show();
-                 //finish();
-                //}
-
-
-            /*@Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
     }
 
 }

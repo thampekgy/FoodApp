@@ -3,32 +3,24 @@ package com.example.windows10.newproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import static com.example.windows10.newproject.Common.Common.currentMember;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class  LoginActivity extends AppCompatActivity {
+public class LoginMember extends AppCompatActivity {
 
     private EditText txtPhone;
     private EditText txtPwd;
@@ -38,7 +30,7 @@ public class  LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_member);
 
         btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
         forgetPassword = (Button) findViewById(R.id.buttonForgetPassword);
@@ -53,7 +45,7 @@ public class  LoginActivity extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final ProgressDialog mDialog = new ProgressDialog(LoginActivity.this);
+                final ProgressDialog mDialog = new ProgressDialog(LoginMember.this);
                 mDialog.setMessage(("Please wait..."));
                 mDialog.show();
                 //Query query = table_member.child("Member").orderByChild();
@@ -72,11 +64,11 @@ public class  LoginActivity extends AppCompatActivity {
 
 
                                     if (snapshot.child("password").getValue().equals(Pwd)) {
-                                        Toast.makeText(LoginActivity.this, "Login successfully...", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginMember.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
                                         String name = snapshot.child("name").getValue().toString();
                                         String email = snapshot.child("email").getValue().toString();
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        Intent intent = new Intent(LoginMember.this, MainActivity.class);
                                         intent.putExtra("Password", Pwd);
                                         intent.putExtra("Email", email);
                                         intent.putExtra("Phone", txtPhoneText);
@@ -86,7 +78,7 @@ public class  LoginActivity extends AppCompatActivity {
 
 
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LoginMember.this, "Wrong Password...", Toast.LENGTH_SHORT).show();
                                     }
 
 
@@ -109,20 +101,10 @@ public class  LoginActivity extends AppCompatActivity {
 
 
     public void email_register_button_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationMember.class);
+        Intent intent = new Intent(LoginMember.this, RegistrationMember.class);
         startActivity(intent);
 
     }
 
-
-    public void joinUsRider_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationRider.class);
-        startActivity(intent);
-    }
-
-    public void joinUsRestaurantOwner_click(View v) {
-        Intent intent = new Intent(LoginActivity.this, RegistrationResOwner.class);
-        startActivity(intent);
-    }
 }
 

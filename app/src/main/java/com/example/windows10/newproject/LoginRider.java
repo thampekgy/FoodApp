@@ -3,27 +3,19 @@ package com.example.windows10.newproject;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.constraint.solver.widgets.Snapshot;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.util.Log;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import static com.example.windows10.newproject.Common.Common.currentMember;
 
 /**
  * A login screen that offers login via email/password.
@@ -38,7 +30,7 @@ public class  LoginRider extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_rider);
 
         btnSignIn = (Button) findViewById(R.id.email_sign_in_button);
         forgetPassword = (Button) findViewById(R.id.buttonForgetPassword);
@@ -104,21 +96,10 @@ public class  LoginRider extends AppCompatActivity {
         });
     }
 
-
-    public void email_register_button_click(View v) {
-        Intent intent = new Intent(LoginRider.this, RegistrationMember.class);
-        startActivity(intent);
-
-    }
-
     public void joinUsRider_click(View v) {
         Intent intent = new Intent(LoginRider.this, RegistrationRider.class);
         startActivity(intent);
     }
 
-    public void joinUsRestaurantOwner_click(View v) {
-        Intent intent = new Intent(LoginRider.this, RegistrationResOwner.class);
-        startActivity(intent);
-    }
 }
 
