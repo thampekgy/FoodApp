@@ -1,5 +1,6 @@
 package com.example.windows10.newproject;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,8 +9,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.windows10.newproject.Model.Complain;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ReportDeliverIssues extends AppCompatActivity {
 
@@ -43,43 +47,16 @@ public class ReportDeliverIssues extends AppCompatActivity {
         email1 = getIntent().getStringExtra("Email");
         yEmail.setText(email1);
 
+        getName();
+
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = yName.getText().toString();
-                String phone = yContact.getText().toString();
-                String email = yEmail.getText().toString();
+
                 String comp = yComplain.getText().toString();
                 boolean flag = true;
-/*
-                if (name.isEmpty()) {
-                    flag = false;
-                    Toast.makeText(ReportDeliverIssues.this, "Name Invalid.", Toast.LENGTH_SHORT).show();
-                }
 
-                if (!phone.isEmpty()) {
-                    if (phone.length() < 10 || phone.length() > 11) {
-                        flag = false;
-                        Toast.makeText(ReportDeliverIssues.this, "Contact too short or too long.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    flag = false;
-                    Toast.makeText(ReportDeliverIssues.this, "Invalid Contact.", Toast.LENGTH_SHORT).show();
-
-                }
-
-                if (!email.isEmpty()) {
-
-                    if ((!email.contains("@")) || (!email.contains(".com"))) {
-                        flag = false;
-                        Toast.makeText(ReportDeliverIssues.this, "Email Format Invalid.", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    flag = false;
-                    Toast.makeText(ReportDeliverIssues.this, "Email Invalid.", Toast.LENGTH_SHORT).show();
-                }*/
 
                 if (comp.isEmpty()) {
                     flag = false;
@@ -96,6 +73,39 @@ public class ReportDeliverIssues extends AppCompatActivity {
 
             }
 
+        });
+    }
+
+    public void getName(){
+        String key = getIntent().getExtras().get("Phone").toString();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference table_member = database.getReference("Member").child(key);
+
+
+        table_member.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+
+                    contact1 = dataSnapshot.child("contact").getValue().toString();
+                    yContact.setText(contact1);
+
+                    name1 = dataSnapshot.child("name").getValue().toString();
+                    yName.setText(name1);
+
+                    email1 = dataSnapshot.child("email").getValue().toString();
+                    yEmail.setText(email1);
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
     }
 }

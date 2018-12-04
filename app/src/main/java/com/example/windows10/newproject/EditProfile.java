@@ -32,7 +32,7 @@ public class EditProfile extends AppCompatActivity {
 
     EditText name, email;
     TextView contact;
-    String no, name1, email1, pwd;
+    String no, name1, email1, pwd, key;
     Button submit;
 
     FirebaseDatabase database ;
@@ -47,7 +47,7 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        String key = getIntent().getExtras().get("Phone").toString();
+        key = getIntent().getExtras().get("Phone").toString();
         database = FirebaseDatabase.getInstance();
         members = database.getReference("Member").child(key);
 
@@ -57,19 +57,36 @@ public class EditProfile extends AppCompatActivity {
         submit = (Button) findViewById(R.id.btnSubmit);
 
 
-        //Bundle result = main.getMyData();
-        //Intent intent = getIntent();
-        no = getIntent().getStringExtra("Phone");
-        contact.setText(no);
+        database = FirebaseDatabase.getInstance();
+        DatabaseReference table_member = database.getReference("Member").child(key);
 
-        name1 = getIntent().getStringExtra("Name");
-        name.setText(name1);
 
-        email1 = getIntent().getStringExtra("Email");
-        email.setText(email1);
+        table_member.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+
+                    no = dataSnapshot.child("contact").getValue().toString();
+                    contact.setText(no);
+
+                    name1 = dataSnapshot.child("name").getValue().toString();
+                    name.setText(name1);
+
+                    email1 = dataSnapshot.child("email").getValue().toString();
+                    email.setText(email1);
 
         pwd = getIntent().getStringExtra("Password");
 
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -78,10 +95,14 @@ public class EditProfile extends AppCompatActivity {
 
     public void btnSubmitUpdate_Click(View v){
 
-                members.child("name").setValue(name.getText().toString());
-                members.child("email").setValue(email.getText().toString());
+        database = FirebaseDatabase.getInstance();
+        members = database.getReference("Member").child(key);
 
-                Toast.makeText(EditProfile.this, "Updated !!!", Toast.LENGTH_SHORT).show();
+
+        members.child("name").setValue(name.getText().toString());
+        members.child("email").setValue(email.getText().toString());
+
+        Toast.makeText(EditProfile.this, "Updated !!!", Toast.LENGTH_SHORT).show();
 
 
     }

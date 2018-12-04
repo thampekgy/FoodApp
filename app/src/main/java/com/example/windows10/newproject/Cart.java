@@ -83,14 +83,6 @@ public class Cart extends AppCompatActivity {
 
     private void loadListFood(){
 
-        //dataSource.open();
-        //final List<OrderRecord> cart = dataSource.getAllOrder();
-        //FavorRecordAdapter adapter = new FavorRecordAdapter(this,R.layout.activity_cart, cart);
-        //cart = new FavorDataSource(this).getAllOrder();
-
-
-        //orderList.getCart();
-
         Gson gson = new Gson();
         SharedPreferences sharedPref = getSharedPreferences( "appData", Context.MODE_PRIVATE );
 
@@ -100,13 +92,9 @@ public class Cart extends AppCompatActivity {
 
         //Use Gson to convert Json string to object
         or2 = gson.fromJson(recordStr, OrderList.class);
-        //Log.v("or2 is",""+ or2);
-        //Toast.makeText(Cart.this, "Added to Cart : "+or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
 
-        //cart.add();
         adapter = new CartAdapter(or2,this);
         recyclerView.setAdapter(adapter);
-    //or2.getCart()
 
 
     }
@@ -137,7 +125,6 @@ public class Cart extends AppCompatActivity {
                         or2
                 );
 
-                Gson gson = new Gson();
                 //Submit to Firebase
 
                 requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);

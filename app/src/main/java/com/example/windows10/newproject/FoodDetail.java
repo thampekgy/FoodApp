@@ -44,7 +44,6 @@ public class FoodDetail extends AppCompatActivity {
     DatabaseReference foods;
 
     FavorSQLHelper orderdb;
-    FavorDataSource dataSource = new FavorDataSource(this);
     Food currentFood;
 
     OrderList orderList = new OrderList();

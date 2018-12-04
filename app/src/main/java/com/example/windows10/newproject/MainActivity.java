@@ -106,20 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-   /* public Bundle getMyData(){
-        Intent mIntent = new Intent(MainActivity.this, EditProfile.class);
-        Bundle bundle = mIntent.getExtras();
-        bundle.putString("Name", name);
-        bundle.putString("Email", email);
-        bundle.putString("Phone", phone);
-
-        *//*EditProfile edit = new EditProfile();
-        edit.setArguments(bundle);*//*
-        return bundle;
-
-
-    }*/
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

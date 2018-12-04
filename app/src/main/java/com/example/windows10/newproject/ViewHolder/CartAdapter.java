@@ -2,6 +2,7 @@ package com.example.windows10.newproject.ViewHolder;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
+import com.example.windows10.newproject.Cart;
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.OrderList;
 import com.example.windows10.newproject.R;
@@ -76,11 +78,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartViewHolder>{
                 .buildRound(""+listData.getCart().get(position).getQuantity(), Color.RED);
         holder.img_cart_count.setImageDrawable(drawable);
 
-        /*Locale locale = new Locale("ms", "MY");
+        Locale locale = new Locale("ms", "MY");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
-        int price = (Integer.parseInt(listData.get(position).getPrice()))*(Integer.parseInt(listData.get(position).getQuantity()));
-        holder.txt_price.setText(fmt.format(price));*/
+        int price = (Integer.parseInt(listData.getCart().get(position).getPrice()))*(Integer.parseInt(listData.getCart().get(position).getQuantity()));
+        holder.txt_price.setText(fmt.format(price));
         holder.txt_cart_name.setText(listData.getCart().get(position).getProductName());
+
+
+
 
     }
 

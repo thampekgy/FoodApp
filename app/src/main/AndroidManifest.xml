@@ -40,9 +40,6 @@
             android:name=".favourite_food_list"
             android:label="Favourite Food List" />
         <activity
-            android:name=".RegistrationRider"
-            android:label="Rider Registration" />
-        <activity
             android:name=".RegistrationResOwner"
             android:label="Register Restaurant Owner" />
         <activity
@@ -72,12 +69,14 @@
             android:label="Help"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".LoginRes" />
-        <activity android:name=".LoginRider" />
         <activity
             android:name=".EditProfile"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".SignUpWho" />
-        <activity android:name=".RiderFirstPage"></activity>
+
+        <activity android:name=".ViewRequest"
+            android:label="Report of Request">
+
+        </activity>
     </application>
 
 </manifest>

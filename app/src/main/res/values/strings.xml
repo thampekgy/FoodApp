@@ -38,7 +38,6 @@
 
     <string name="hello_about_fragment">This is the about us pages.</string>
 
-    <!--city-->
     <string-array name="city_array">
         <item>Kuala Lumpur</item>
         <item>Johor Bahru</item>
@@ -48,6 +47,8 @@
     <string name="faq_str1">After you place an online order, we transfer it to thw restaurant which will then start preparing your food. Our restaurants do everything they can to get your food delivered as quickly as posile. However, heavy traffic or unexpectedly high demand ay cause delays to your food delivery. Please bear with us. If it is been too long, you can contact us and we will find out what is going on immediately.</string>
     <string name="faq_str2">If you have a voucher code, you can redeem it after selecting a restaurant and adding items to your basket. You will see a field to enter your voucher code on the order overview page. If the voucher is valid,the discount on your order will be calculated immediately. Only one voucher can used per order. If your voucher code does not work, please try it on different browser. Otherwise, contact us and we will be happy to assist you.</string>
     <string name="faq_str3">With regard to order cancellation or refund of a payment you have made online, Feel free to coordinate with our Customer Service phone to contact us </string>
+    <string name="title_activity_main_rider">MainRider</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>

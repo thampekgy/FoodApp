@@ -1,6 +1,5 @@
 package com.example.windows10.newproject;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +18,6 @@ public class SignUpWho extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void btnRider_click(View v){
-        Intent intent = new Intent(SignUpWho.this, RegistrationRider.class);
-        startActivity(intent);
-
-    }
 
 
     public void btnOwner_click(View v){

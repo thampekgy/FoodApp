@@ -1,6 +1,5 @@
 package com.example.windows10.newproject;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.windows10.newproject.Model.Member;
 import com.example.windows10.newproject.Model.RestaurantOwner;
-import com.example.windows10.newproject.Model.Rider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
