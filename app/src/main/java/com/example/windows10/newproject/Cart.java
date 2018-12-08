@@ -2,7 +2,9 @@ package com.example.windows10.newproject;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,18 +12,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.windows10.newproject.Common.Common;
+import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.OrderList;
 import com.example.windows10.newproject.Model.Request;
 import com.example.windows10.newproject.ViewHolder.CartAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import java.text.NumberFormat;
@@ -40,11 +48,16 @@ public class Cart extends AppCompatActivity {
     TextView txtTotalPrice;
     Button btnPlace;
 
-    String name1, phone1;
+    String name1, phone1, foodStatus;
+    //TextView name2, price2, qty2;
 
     //FavorDataSource dataSource;
     OrderList or2;
     CartAdapter adapter;
+
+    //ListView cartlistView;
+    //List<String> lt, lt2, lt3;
+
 
 
     @Override
@@ -62,12 +75,18 @@ public class Cart extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        /*cartlistView = findViewById(R.id.cart_listView);
+        name2 = findViewById(R.id.cart_item_name);
+        price2 = findViewById(R.id.cart)*/
+
+
         txtTotalPrice = (TextView) findViewById(R.id.total);
         btnPlace = (Button) findViewById(R.id.btn_place_order);
 
         name1 = getIntent().getStringExtra("Name");
         phone1 = getIntent().getStringExtra("Phone");
 
+        foodStatus = "pending";
         loadListFood();
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +102,42 @@ public class Cart extends AppCompatActivity {
 
     private void loadListFood(){
 
+       /* final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        final DatabaseReference table_tempFood = database.getReference("TempFood");
+
+        table_tempFood.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                lt = new ArrayList<>();
+                lt2 = new ArrayList<>();
+                lt3 = new ArrayList<>();
+                 //or2 = dataSnapshot.getValue(OrderList.class);
+                 //Log.v();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    String name = snapshot.child("tempFoodName").getValue().toString();
+                    String price = snapshot.child("tempPrice").getValue().toString();
+                    String qty = snapshot.child("tempQty").getValue().toString();
+                    lt.add(name);
+                    lt2.add(price);
+                    lt3.add(qty);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Cart.this, R.layout.cart_layout, R.id.cart_listView, lt);
+                cartlistView.setAdapter(adapter);
+
+               *//* adapter = new CartAdapter(or2,Cart.this);
+                recyclerView.setAdapter(adapter);*//*
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+
+
+
         Gson gson = new Gson();
         SharedPreferences sharedPref = getSharedPreferences( "appData", Context.MODE_PRIVATE );
 
@@ -96,6 +151,17 @@ public class Cart extends AppCompatActivity {
         adapter = new CartAdapter(or2,this);
         recyclerView.setAdapter(adapter);
 
+
+
+        //Calculate the price
+        /*int total=0;
+        for(OrderRecord orderRecord:or2)
+            total+=(Integer.parseInt(orderRecord.getPrice()))*(Integer.parseInt(orderRecord.getQuantity()));
+
+        Locale locale = new Locale("ms", "MY");
+        NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
+
+        txtTotalPrice.setText(fmt.format(total));*/
 
     }
 
@@ -122,7 +188,8 @@ public class Cart extends AppCompatActivity {
                         phone1,
                         name1,
                         add.getText().toString(),
-                        or2
+                        or2,
+                        foodStatus
                 );
 
                 //Submit to Firebase

@@ -17,6 +17,7 @@ import com.example.windows10.newproject.Database.FavorDataSource;
 import com.example.windows10.newproject.Database.FavorSQLHelper;
 import com.example.windows10.newproject.Model.Food;
 import com.example.windows10.newproject.Model.OrderRecord;
+import com.example.windows10.newproject.Model.TempFood;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FoodDetail extends AppCompatActivity {
+
 
 
     TextView food_name,food_price,food_description;
@@ -46,9 +48,8 @@ public class FoodDetail extends AppCompatActivity {
     FavorSQLHelper orderdb;
     Food currentFood;
 
-    OrderList orderList = new OrderList();
-    List<OrderRecord> cart = new ArrayList<>();
-
+    OrderList orderList;
+    List<OrderRecord> cart;
 
 
 
@@ -58,12 +59,17 @@ public class FoodDetail extends AppCompatActivity {
         setContentView(R.layout.activity_food_detail);
         setTitle("Food Detail");
 
-        orderdb = new FavorSQLHelper(this);
+        //orderdb = new FavorSQLHelper(this);
 
         database=FirebaseDatabase.getInstance();
         foods=database.getReference("Foods");
 
+        orderList = (OrderList) getIntent().getSerializableExtra("OrderList");
+        cart = (List<OrderRecord>) getIntent().getSerializableExtra("Cart");
 
+
+       /* final FirebaseDatabase database =  FirebaseDatabase.getInstance();
+        final DatabaseReference table_tempFood = database.getReference("TempFood");*/
 
 
         //View
@@ -76,6 +82,10 @@ public class FoodDetail extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               /* TempFood temp = new TempFood(foodId, currentFood.getName(), numberButton.getNumber(), currentFood.getPrice());
+                table_tempFood.push().setValue(temp);*/
+                //table_member.child(resContact.getText().toString()).setValue(member);
 
                 cart.add(new OrderRecord(
                        foodId,

@@ -22,8 +22,8 @@ public class LoginSignUp extends AppCompatActivity {
 
 
     public void signUp_click(View v){
-        Intent intent = new Intent(LoginSignUp.this, SignUpWho.class);
-        startActivity(intent);
+        Intent intent1 = new Intent(LoginSignUp.this, SignUpWho.class);
+        startActivity(intent1);
 
     }
 }

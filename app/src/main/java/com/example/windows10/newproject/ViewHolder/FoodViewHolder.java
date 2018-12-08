@@ -3,16 +3,25 @@ package com.example.windows10.newproject.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.R;
 
-public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+
+
+    //String[] number = {"1", "2", "3", "4", "5"};
     public TextView food_name;
-    public ImageView food_image, fav;
+    public ImageView food_image;
+    //public Spinner num;
+    //public ImageButton btnadd;
 
     private ItemClickListener itemClickListener;
 
@@ -24,7 +33,13 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
         food_name=itemView.findViewById(R.id.food_name) ;
         food_image = itemView.findViewById(R.id.food_image);
-        fav = itemView.findViewById(R.id.fav);
+
+        /*num = itemView.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter1 = ArrayAdapter(FoodViewHolder.this, android.R.layout.activity_list_item, number);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        num.setAdapter(adapter1);*/
+
+        //btnadd = itemView.findViewById(R.id.add);
 
         itemView.setOnClickListener(this);
     }

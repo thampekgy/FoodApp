@@ -36,6 +36,7 @@
         <activity
             android:name=".RegistrationMember"
             android:label="Register Member" />
+        <activity android:name=".SignUpWho"></activity>
         <activity
             android:name=".favourite_food_list"
             android:label="Favourite Food List" />

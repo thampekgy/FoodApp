@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.windows10.newproject.Common.Common;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -59,10 +61,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent myIntent = getIntent();
         phone = myIntent.getStringExtra("Phone");
         navPhone.setText(phone);
+        //navPhone.setText(Common.currentMember.getContact());
 
         txtFullName= (TextView)headerView.findViewById(R.id.navFullName);
-         name = myIntent.getStringExtra("name");
+        name = myIntent.getStringExtra("name");
         txtFullName.setText(name);
+        //txtFullName.setText(Common.currentMember.getName());
 
         email = myIntent.getStringExtra("Email");
         pwd = myIntent.getStringExtra("Password");

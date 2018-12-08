@@ -14,11 +14,16 @@ import android.widget.Toast;
 
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.Model.Category;
+import com.example.windows10.newproject.Model.OrderRecord;
 import com.example.windows10.newproject.ViewHolder.MenuViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -34,6 +39,7 @@ public class HomeFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager ;
 
     FirebaseRecyclerAdapter<Category,MenuViewHolder> adapter;
+
 
 
     public HomeFragment() {

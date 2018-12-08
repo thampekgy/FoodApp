@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.windows10.newproject.Common.Common;
+import com.example.windows10.newproject.Model.Member;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,16 +61,18 @@ public class LoginMember extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
+
                                 if (snapshot.child("contact").getValue().equals(txtPhoneText)) {
                                     mDialog.dismiss();
 
-
+                                    //Member member = snapshot.child(txtPhoneText).getValue(Member.class);
                                     if (snapshot.child("password").getValue().equals(Pwd)) {
                                         Toast.makeText(LoginMember.this, "Login successfully...", Toast.LENGTH_SHORT).show();
                                         //Common.currentMember = mem;
                                         String name = snapshot.child("name").getValue().toString();
                                         String email = snapshot.child("email").getValue().toString();
                                         Intent intent = new Intent(LoginMember.this, MainActivity.class);
+                                        //Common.currentMember = member;
                                         intent.putExtra("Password", Pwd);
                                         intent.putExtra("Email", email);
                                         intent.putExtra("Phone", txtPhoneText);

@@ -46,28 +46,17 @@
         android:textSize="20dp" />
 
     <Button
-        android:id="@+id/btnRider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnMember"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="13dp"
-        android:gravity="center"
-        android:text="Delivery Person"
-        android:onClick="btnRider_click"
-        android:textColor="@android:color/black"
-        android:textSize="20dp" />
-
-    <Button
         android:id="@+id/btnOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnRider"
+        android:layout_below="@+id/btnMember"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginBottom="129dp"
         android:gravity="center"
-        android:text="Restaurant Owner"
         android:onClick="btnOwner_click"
+        android:text="Restaurant Owner"
         android:textColor="@android:color/black"
         android:textSize="20dp" />
 

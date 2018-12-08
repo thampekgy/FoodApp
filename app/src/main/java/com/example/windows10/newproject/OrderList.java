@@ -2,10 +2,11 @@ package com.example.windows10.newproject;
 
 import com.example.windows10.newproject.Model.OrderRecord;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderList {
+public class OrderList implements Serializable {
 
     List<OrderRecord> cart;
 

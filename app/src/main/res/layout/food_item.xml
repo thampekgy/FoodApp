@@ -20,31 +20,39 @@
             android:layout_height="match_parent" />
 
         <LinearLayout
-            android:weightSum="10"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="39dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/overlayBackground"    >
+            android:background="@color/overlayBackground"
+            android:orientation="horizontal"
+            android:weightSum="10">
 
 
             <TextView
                 android:id="@+id/food_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="9"
+                android:gravity="left"
                 android:text="Name of Food"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:layout_weight="9"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textSize="25sp" />
 
-            <ImageView
-                android:id="@+id/fav"
-                android:src="@drawable/ic_favorite_border_black_24dp"
-                android:tint="@android:color/white"
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="68dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_weight="1" />
+
+            <ImageButton
+                android:id="@+id/add"
+                android:layout_width="48dp"
+                android:layout_height="38dp"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:src="@drawable/ic_add_black_24dp"
+                android:tint="@android:color/white" />
 
         </LinearLayout>
 
