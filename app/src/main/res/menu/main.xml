@@ -28,9 +28,9 @@
                 android:icon="@drawable/ic_search_black_24dp"
                 app:showAsAction="always" />
         <item
-            android:id="@+id/cartButton"
+            android:id="@+id/waitOrder"
             android:title="Order List"
-            android:icon="@drawable/ic_shopping_cart_black_24dp"
+            android:icon="@drawable/ic_access_time_black_24dp"
             app:showAsAction="always" />
 
 

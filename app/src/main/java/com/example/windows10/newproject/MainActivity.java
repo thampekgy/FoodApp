@@ -139,10 +139,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //return true;
         } else if(id == R.id.action_notification) {
 
-        } else */if(id == R.id.action_favoriteFoodList) {
+        } else */
+
+        if (id == R.id.waitOrder){
+            Intent intent1 = new Intent(MainActivity.this, WaitOrder.class);
+
+            startActivity(intent1);
+        }
+
+        if(id == R.id.action_favoriteFoodList) {
 
             Intent intent = new Intent(MainActivity.this, favourite_food_list.class);
 
+            intent.putExtra("Name", name);
             startActivity(intent);
 
 

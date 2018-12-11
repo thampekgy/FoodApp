@@ -36,7 +36,7 @@
         <activity
             android:name=".RegistrationMember"
             android:label="Register Member" />
-        <activity android:name=".SignUpWho"></activity>
+        <activity android:name=".SignUpWho" />
         <activity
             android:name=".favourite_food_list"
             android:label="Favourite Food List" />
@@ -73,11 +73,7 @@
         <activity
             android:name=".EditProfile"
             android:parentActivityName=".MainActivity" />
-
-        <activity android:name=".ViewRequest"
-            android:label="Report of Request">
-
-        </activity>
+        <activity android:name=".WaitOrder"></activity>
     </application>
 
 </manifest>
