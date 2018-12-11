@@ -15,14 +15,14 @@ public class LoginSignUp extends AppCompatActivity {
     }
 
     public void signIn_click(View v){
-        Intent intent = new Intent(LoginSignUp.this, LoginWho.class);
+        Intent intent = new Intent(LoginSignUp.this, LoginMember.class);
         startActivity(intent);
 
     }
 
 
     public void signUp_click(View v){
-        Intent intent1 = new Intent(LoginSignUp.this, SignUpWho.class);
+        Intent intent1 = new Intent(LoginSignUp.this, RegistrationMember.class);
         startActivity(intent1);
 
     }

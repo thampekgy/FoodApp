@@ -24,9 +24,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginWho"
-            android:label="Foodies Application" />
-        <activity
             android:name=".LoginMember"
             android:label="@string/app_name" />
         <activity
@@ -36,13 +33,9 @@
         <activity
             android:name=".RegistrationMember"
             android:label="Register Member" />
-        <activity android:name=".SignUpWho" />
         <activity
             android:name=".favourite_food_list"
             android:label="Favourite Food List" />
-        <activity
-            android:name=".RegistrationResOwner"
-            android:label="Register Restaurant Owner" />
         <activity
             android:name=".FoodList"
             android:label="Food List"
@@ -69,7 +62,6 @@
             android:name=".Help1"
             android:label="Help"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".LoginRes" />
         <activity
             android:name=".EditProfile"
             android:parentActivityName=".MainActivity" />
