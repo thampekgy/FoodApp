@@ -179,6 +179,8 @@ public class FoodList extends AppCompatActivity {
             protected void populateViewHolder(final FoodViewHolder viewHolder, final Food model, final int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.food_image);
+                viewHolder.food_price.setText((model.getPrice()));
+
                 //numberButton1 = viewHolder.num;
                 //Toast.makeText(FoodList.this,""+numberButton1,Toast.LENGTH_SHORT).show();
 

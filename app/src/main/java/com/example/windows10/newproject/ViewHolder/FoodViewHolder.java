@@ -22,7 +22,8 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     //String[] number = {"1", "2", "3", "4", "5"};
     public TextView food_name;
     public ImageView food_image;
-    static public Spinner num;
+    //static public Spinner num;
+    public TextView food_price;
     public ImageButton btnadd;
 
     private ItemClickListener itemClickListener;
@@ -34,6 +35,7 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public FoodViewHolder(View itemView) {
         super(itemView);
         food_name=itemView.findViewById(R.id.food_name) ;
+        food_price=itemView.findViewById(R.id.food_price);
         food_image = itemView.findViewById(R.id.food_image);
 
         //num = itemView.findViewById(R.id.spinner);
