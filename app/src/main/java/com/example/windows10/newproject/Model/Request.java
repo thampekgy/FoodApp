@@ -11,18 +11,28 @@ public class Request {
     private String total;
     OrderList foods; //list of food order
     private String foodStatus;
+    private String deliveredTime;
 
     public Request(){
 
     }
 
-    public Request(String phone, String name, String address, String total, OrderList foods, String foodStatus) {
+    public Request(String phone, String name, String address, String total, OrderList foods, String foodStatus, String deliveredTime) {
         this.phone = phone;
         this.name = name;
         this.address = address;
         this.total = total;
         this.foods = foods;
         this.foodStatus = foodStatus;
+        this.deliveredTime = deliveredTime;
+    }
+
+    public String getDeliveredTime() {
+        return deliveredTime;
+    }
+
+    public void setDeliveredTime(String deliveredTime) {
+        this.deliveredTime = deliveredTime;
     }
 
     public String getFoodStatus() {

@@ -102,10 +102,6 @@ public class Cart extends AppCompatActivity {
 
     private void loadListFood(){
 
-
-
-
-
         Gson gson = new Gson();
         SharedPreferences sharedPref = getSharedPreferences( "appData", Context.MODE_PRIVATE );
 
@@ -135,57 +131,88 @@ public class Cart extends AppCompatActivity {
     }
 
     private  void showAlertDialog(){
-        AlertDialog.Builder alert = new AlertDialog.Builder(Cart.this);
-        alert.setTitle("One more step");
-        alert.setMessage("Enter your Address: ");
 
-        final EditText add = new EditText(Cart.this);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+        AlertDialog.Builder alert1 = new AlertDialog.Builder(Cart.this);
+        alert1.setTitle("Two more step");
+        alert1.setMessage("Enter your Time: ");
+        alert1.setMessage("**The minimum delivered time must up to 24hours.");
+
+        final EditText time = new EditText(Cart.this);
+        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
         );
 
-        add.setLayoutParams(lp);
-        alert.setView(add); //add edit text to alert dialog
-        alert.setIcon(R.drawable.ic_shopping_cart_black_24dp);
+        time.setLayoutParams(lp1);
+        alert1.setView(time); //add edit text to alert dialog
+        alert1.setIcon(R.drawable.ic_access_time_black_24dp);
 
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        alert1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int i) {
-                //Create new Request
-                Request re = new Request(
-                        phone1,
-                        name1,
-                        add.getText().toString(),
-                        txtTotalPrice.getText().toString(),
-                        or2,
-                        foodStatus
+            public void onClick(DialogInterface dialog, int which) {
+                AlertDialog.Builder alert = new AlertDialog.Builder(Cart.this);
+                alert.setTitle("One more step");
+                alert.setMessage("Enter your Address: ");
+
+                final EditText add = new EditText(Cart.this);
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
                 );
 
-                //Submit to Firebase
+                add.setLayoutParams(lp);
+                alert.setView(add); //add edit text to alert dialog
+                alert.setIcon(R.drawable.ic_shopping_cart_black_24dp);
 
-                requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
+                alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        //Create new Request
+                        Request re = new Request(
+                                phone1,
+                                name1,
+                                add.getText().toString(),
+                                txtTotalPrice.getText().toString(),
+                                or2,
+                                foodStatus,
+                                time.getText().toString()
+                        );
 
-                //Delete Cart
-                String record1 = " ";
-                SharedPreferences.Editor prefEditor = getSharedPreferences( "appData", Context.MODE_PRIVATE ).edit();
-                // Save record1 as "order"
-                prefEditor.putString( "order", record1 );
-                prefEditor.commit();
-                Toast.makeText(Cart.this, "Thank You, Order Place", Toast.LENGTH_SHORT).show();;
-                finish();
+                        //Submit to Firebase
+
+                        requests.child(String.valueOf(System.currentTimeMillis())).setValue(re);
+
+                        //Delete Cart
+                        String record1 = " ";
+                        SharedPreferences.Editor prefEditor = getSharedPreferences( "appData", Context.MODE_PRIVATE ).edit();
+                        // Save record1 as "order"
+                        prefEditor.putString( "order", record1 );
+                        prefEditor.commit();
+                        Toast.makeText(Cart.this, "Thank You, Order Place", Toast.LENGTH_SHORT).show();;
+                        finish();
+
+                    }
+                });
+                alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+
+                        dialog.dismiss();
+                    }
+                });
+                alert.show();
 
             }
         });
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+        alert1.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int i) {
 
                 dialog.dismiss();
             }
         });
+        alert1.show();
 
-        alert.show();
     }
 
 
