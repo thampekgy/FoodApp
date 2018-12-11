@@ -3,17 +3,17 @@ package com.example.windows10.newproject.Model;
 public class OrderRecord {
     private String ProductId ;
     private String ProductName ;
-    private String Quantity;
+    //private String Quantity;
     private String Price ;
     private String Discount ;
 
 
 
-    public OrderRecord(String productId, String productName, String quantity, String price, String discount) {
+    public OrderRecord(String productId, String productName, String price, String discount) {
 
         ProductId = productId;
         ProductName = productName;
-        Quantity = quantity;
+        //Quantity = quantity;
         Price = price;
         Discount = discount;
     }
@@ -38,13 +38,13 @@ public class OrderRecord {
         ProductName = productName;
     }
 
-    public String getQuantity() {
+   /* public String getQuantity() {
         return Quantity;
     }
 
     public void setQuantity(String quantity) {
         Quantity = quantity;
-    }
+    }*/
 
     public String getPrice() {
         return Price;
@@ -66,7 +66,6 @@ public class OrderRecord {
     public String toString() {
         return "OrderRecord.COLUMN_ID" + ":" +this.getProductId() + ","
                 + "OrderRecord.COLUMN_PRODUCTNAME" + ":" +this.getProductName() + ","
-                + "OrderRecord.COLUMN_QUANTITY" + ":" +this.getQuantity() + ","
                 + "OrderRecord.COLUMN_PRICE" + ":" +this.getPrice() + ","
                 + "OrderRecord.COLUMN_DISCOUNT" + ":" +this.getDiscount() + ","
 

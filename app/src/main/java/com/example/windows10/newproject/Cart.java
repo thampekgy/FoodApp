@@ -102,39 +102,7 @@ public class Cart extends AppCompatActivity {
 
     private void loadListFood(){
 
-       /* final FirebaseDatabase database =  FirebaseDatabase.getInstance();
-        final DatabaseReference table_tempFood = database.getReference("TempFood");
 
-        table_tempFood.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                lt = new ArrayList<>();
-                lt2 = new ArrayList<>();
-                lt3 = new ArrayList<>();
-                 //or2 = dataSnapshot.getValue(OrderList.class);
-                 //Log.v();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String name = snapshot.child("tempFoodName").getValue().toString();
-                    String price = snapshot.child("tempPrice").getValue().toString();
-                    String qty = snapshot.child("tempQty").getValue().toString();
-                    lt.add(name);
-                    lt2.add(price);
-                    lt3.add(qty);
-                }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Cart.this, R.layout.cart_layout, R.id.cart_listView, lt);
-                cartlistView.setAdapter(adapter);
-
-               *//* adapter = new CartAdapter(or2,Cart.this);
-                recyclerView.setAdapter(adapter);*//*
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });*/
 
 
 
@@ -154,14 +122,15 @@ public class Cart extends AppCompatActivity {
 
 
         //Calculate the price
-        /*int total=0;
-        for(OrderRecord orderRecord:or2)
-            total+=(Integer.parseInt(orderRecord.getPrice()))*(Integer.parseInt(orderRecord.getQuantity()));
+        int total=0;
+        for(OrderRecord orderRecord:or2.getCart()) {
+            total += (Integer.parseInt(orderRecord.getPrice()));
+        }
 
         Locale locale = new Locale("ms", "MY");
         NumberFormat fmt = NumberFormat.getCurrencyInstance(locale);
 
-        txtTotalPrice.setText(fmt.format(total));*/
+        txtTotalPrice.setText(fmt.format(total));
 
     }
 
@@ -188,6 +157,7 @@ public class Cart extends AppCompatActivity {
                         phone1,
                         name1,
                         add.getText().toString(),
+                        txtTotalPrice.getText().toString(),
                         or2,
                         foodStatus
                 );

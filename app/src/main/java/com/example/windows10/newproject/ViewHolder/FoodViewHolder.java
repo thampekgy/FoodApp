@@ -3,6 +3,7 @@ package com.example.windows10.newproject.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.windows10.newproject.FoodList;
 import com.example.windows10.newproject.Interface.ItemClickListener;
 import com.example.windows10.newproject.R;
 
@@ -20,8 +22,8 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     //String[] number = {"1", "2", "3", "4", "5"};
     public TextView food_name;
     public ImageView food_image;
-    //public Spinner num;
-    //public ImageButton btnadd;
+    static public Spinner num;
+    public ImageButton btnadd;
 
     private ItemClickListener itemClickListener;
 
@@ -34,12 +36,15 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         food_name=itemView.findViewById(R.id.food_name) ;
         food_image = itemView.findViewById(R.id.food_image);
 
-        /*num = itemView.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter1 = ArrayAdapter(FoodViewHolder.this, android.R.layout.activity_list_item, number);
+        //num = itemView.findViewById(R.id.spinner);
+        //num.getSelectedItem().toString();
+        //numberButton();
+
+        /*ArrayAdapter<String> adapter1 = ArrayAdapter(FoodViewHolder.this, android.R.layout.activity_list_item, number);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         num.setAdapter(adapter1);*/
 
-        //btnadd = itemView.findViewById(R.id.add);
+        btnadd = itemView.findViewById(R.id.add);
 
         itemView.setOnClickListener(this);
     }
@@ -48,5 +53,9 @@ public class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View view) {
         itemClickListener.onClick(view,getAdapterPosition(),false);
     }
+
+
+
+
 }
 

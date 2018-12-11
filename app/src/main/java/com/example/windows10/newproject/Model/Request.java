@@ -8,7 +8,7 @@ public class Request {
     private String phone;
     private String name;
     private String address;
-    //private String total;
+    private String total;
     OrderList foods; //list of food order
     private String foodStatus;
 
@@ -16,11 +16,11 @@ public class Request {
 
     }
 
-    public Request(String phone, String name, String address, OrderList foods, String foodStatus) {
+    public Request(String phone, String name, String address, String total, OrderList foods, String foodStatus) {
         this.phone = phone;
         this.name = name;
         this.address = address;
-        //this.total = total;
+        this.total = total;
         this.foods = foods;
         this.foodStatus = foodStatus;
     }
@@ -57,13 +57,13 @@ public class Request {
         this.address = address;
     }
 
-    /*public String getTotal() {
+    public String getTotal() {
         return total;
-    }*/
+    }
 
-    /*public void setTotal(String total) {
+    public void setTotal(String total) {
         this.total = total;
-    }*/
+    }
 
     public OrderList getFoods() {
         return foods;

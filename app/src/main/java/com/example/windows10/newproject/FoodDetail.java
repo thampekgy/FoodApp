@@ -90,7 +90,6 @@ public class FoodDetail extends AppCompatActivity {
                 cart.add(new OrderRecord(
                        foodId,
                        currentFood.getName(),
-                       numberButton.getNumber(),
                        currentFood.getPrice(),
                        currentFood.getDiscount()
                ));

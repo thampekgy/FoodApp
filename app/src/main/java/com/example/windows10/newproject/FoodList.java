@@ -44,8 +44,8 @@ public class FoodList extends AppCompatActivity {
 
     FirebaseDatabase database;
     DatabaseReference foodList;
-    Spinner numberButton1;
-    ImageButton btnCart;
+    //static Spinner  numberButton1;
+    static ImageButton btnCart;
 
 
     //String[] num1 ={"1", "2", "3", "4", "5"};
@@ -53,6 +53,7 @@ public class FoodList extends AppCompatActivity {
     String categoryId = "";
     String foodId = "";
     Food currentFood;
+    static String num;
 
     //FavorDataSource favor;
     FirebaseRecyclerAdapter<Food, FoodViewHolder> adapter;
@@ -71,12 +72,14 @@ public class FoodList extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         foodList = database.getReference("Foods");
 
-        /*numberButton1 = (Spinner) findViewById(R.id.number_button1);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, num1);
+        //numberButton1 = (Spinner) findViewById(R.id.spinner);
+        //num = numberButton1.getSelectedItem().toString();
+
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, num1);
         //ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(FoodList.this, R.array.number_array, android.R.layout.activity_list_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        numberButton1.setAdapter(adapter);
-        numberButton1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //numberButton1.setAdapter(adapter);
+        /*numberButton1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String num = parent.getItemAtPosition(position).toString();
@@ -117,17 +120,22 @@ public class FoodList extends AppCompatActivity {
     }
 
 
-   /* public void btnCart_Click(View v) {
+    public void btnCart_Click(View v) {
 
         //num = numberButton1.getSelectedItem().toString();
 
         //Log.v("Your number is ", "" + num);
         //Toast.makeText(FoodList.this, "" + num, Toast.LENGTH_SHORT).show();
+        /*num = numberButton1.getSelectedItem().toString();
+        Toast.makeText(FoodList.this,num,Toast.LENGTH_SHORT).show();*/
+
+        //numberButton1 = findViewById(R.id.spinner);
+
+        //num = numberButton1.getSelectedItem().toString();
 
         cart.add(new OrderRecord(
                 foodId,
                 currentFood.getName(),
-                numberButton1.getSelectedItem().toString(),
                 currentFood.getPrice(),
                 currentFood.getDiscount()
         ));
@@ -157,10 +165,10 @@ public class FoodList extends AppCompatActivity {
         OrderList or2 = gson.fromJson(recordStr, OrderList.class);
         Log.v("or2 is", "" + or2);
 
-        Toast.makeText(FoodList.this, "Added to Cart : " + or2.getCart().get(0).getProductName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(FoodList.this, "Added to Cart. ", Toast.LENGTH_SHORT).show();
 
 
-    }*/
+    }
 
     private void loadListFood(String categoryId) {
         adapter = new FirebaseRecyclerAdapter<Food, FoodViewHolder>(Food.class, R.layout.food_item,
@@ -171,6 +179,8 @@ public class FoodList extends AppCompatActivity {
             protected void populateViewHolder(final FoodViewHolder viewHolder, final Food model, final int position) {
                 viewHolder.food_name.setText(model.getName());
                 Picasso.with(getBaseContext()).load(model.getImage()).into(viewHolder.food_image);
+                //numberButton1 = viewHolder.num;
+                //Toast.makeText(FoodList.this,""+numberButton1,Toast.LENGTH_SHORT).show();
 
                 /*ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(FoodList.this, R.array.number_array, android.R.layout.activity_list_item);
                 adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -182,14 +192,14 @@ public class FoodList extends AppCompatActivity {
                     public void onClick(View view, final int position, boolean isLongClick) {
 
                         //Get CategoryId and send to new Activity
-                        final Intent foodDetail= new Intent(FoodList.this,FoodDetail.class);
+                       /* final Intent foodDetail= new Intent(FoodList.this,FoodDetail.class);
                         foodDetail.putExtra("OrderList", orderList);
                         foodDetail.putExtra("Cart", (Serializable) cart);
                         foodDetail.putExtra("FoodId",adapter.getRef(position).getKey()); //send foodId to new Activity
                         startActivity(foodDetail);
-                        Toast.makeText(FoodList.this, ""+local.getName(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(FoodList.this, ""+local.getName(), Toast.LENGTH_SHORT).show();*/
 
-                        /*foodId = adapter.getRef(position).getKey();
+                        foodId = adapter.getRef(position).getKey();
                         foodList.child(foodId).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -205,7 +215,7 @@ public class FoodList extends AppCompatActivity {
                             public void onCancelled(DatabaseError databaseError) {
 
                             }
-                        });*/
+                        });
                     }
                 });
 
